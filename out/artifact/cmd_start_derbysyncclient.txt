@@ -1,0 +1,1 @@
+cmd /C start /MIN c:\derby10\DerbySyncClient\start_derbysyncclient.cmd
