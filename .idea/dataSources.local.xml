@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Derby - bata1_pos1@localhost" uuid="04b51ae8-81bd-46e9-b3f4-45439c07e5be">
+      <secret-storage>memory</secret-storage>
+      <user-name>APP</user-name>
+      <schema-pattern>*.APP</schema-pattern>
+      <default-schemas>*.APP</default-schemas>
+    </data-source>
+    <data-source name="Derby - bata1_pos1-20161102@localhost" uuid="c2c2ee10-03c1-4dc0-b2e3-b76698bc391c">
+      <secret-storage>memory</secret-storage>
+      <user-name>APP</user-name>
+      <schema-pattern>*.APP</schema-pattern>
+      <default-schemas>*.APP</default-schemas>
+    </data-source>
+  </component>
+</project>
