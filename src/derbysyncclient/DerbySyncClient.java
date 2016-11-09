@@ -173,7 +173,7 @@ public class DerbySyncClient {
                     bNoDataForUpdate=false;
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else { 
-                    bNoDataForUpdate=true; //нет данных для отправки
+                    bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
                 }
             } catch (Exception e) {
                 logger.log(Level.WARNING, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\b\n FAILED: {0}", e.getMessage());
@@ -211,7 +211,9 @@ public class DerbySyncClient {
             throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
         }
         try { //---обработка ответа---
-            oCSDTS.handlingResponse(response);
+            int iDataState;
+            if ( (iDataState=oCSDTS.handlingResponse(response))<0)
+                throw new Exception("FAILED to success handle SOAP response message! Reason: data state is "+Integer.toString(iDataState)+"!");
         } catch (Exception e) {
             throw new Exception("FAILED to handle SOAP response message! "+e.getMessage());
         }
@@ -220,7 +222,7 @@ public class DerbySyncClient {
     
     /* Формирование и отправка сообщения-запроса на применение данных синхронизации от клиента и получение и обработка ответа с сервера о применении данных. 
        Если нет данных для отправки - результат false,
-       если есть данные и отправка, получение ответа и обработка ответа прошли удачно-результат true.
+       если есть данные и отправка, получение ответа и обработка ответа прошли удачно и статус применения данных >0 -результат true.
        В случае ошибок генерируются исключения. */
     private static boolean sendUpdRequest() throws Exception {
         SOAPMessage request;
@@ -239,7 +241,9 @@ public class DerbySyncClient {
             throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
         }
         try { //---обработка ответа---
-            CSDTUS2.handlingResponse(response);
+            int iDataAppliedState;
+            if ( !((iDataAppliedState=CSDTUS2.handlingResponse(response))>0) )
+                throw new Exception("FAILED to success handle SOAP response message! Reason: data state is "+Integer.toString(iDataAppliedState)+"!");
         } catch (Exception e) {
             throw new Exception("FAILED to handle SOAP response message! "+e.getMessage());
         }

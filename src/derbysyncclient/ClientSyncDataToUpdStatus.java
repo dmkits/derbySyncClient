@@ -107,8 +107,9 @@ public class ClientSyncDataToUpdStatus {
         return request;
     }
     
-    /* Обработка ответа на запрос на изменение статуса-применение данных на сервере. */
-    public boolean handlingResponse(SOAPMessage response) throws Exception {
+    /* Обработка ответа на запрос на изменение статуса-применение данных на сервере.
+    * Результат - полученный статус применения данных. */
+    public int handlingResponse(SOAPMessage response) throws Exception {
         logger.log(Level.INFO, "-----------Handling response message-----------");
         if (response==null) { 
             throw new Exception("FAILED to handle response message! Response message is NULL!");
@@ -127,11 +128,12 @@ public class ClientSyncDataToUpdStatus {
         }
         String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataoutwithstatus_upd.sql"); //чтение sql-запроса из ресурса
         //подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку
+        String sStatus = (String)oDataFromResponse.get("Status");
         try {
             //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
             PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_upd);
             //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("Status")+", "+(String)oData.get("Msg")+", "+(String)oData.get("AppliedDate")+").");
-            voPSt.setString(1,(String)oDataFromResponse.get("Status")); //Status
+            voPSt.setString(1,sStatus); //Status
             voPSt.setString(2,(String)oDataFromResponse.get("Msg")); //Msg
             voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
             if ("".equals((String)oDataFromResponse.get("AppliedDate"))) { //APPLIEDDATE 
@@ -139,13 +141,17 @@ public class ClientSyncDataToUpdStatus {
             } else {
                 voPSt.setString(4,(String)oDataFromResponse.get("AppliedDate"));
             }
-            voPSt.setString(5,(String)oDataFromResponse.get("ID")); //ID
+            voPSt.setString(5, (String) oDataFromResponse.get("ID")); //ID
             //logger.log(Level.INFO, "Executing prepeared statement.");
             voPSt.executeUpdate();
             voPSt.close();
         } catch (Exception e) {
             throw new Exception("FAILED to prepare and execute database statement from resource syncdataoutwithstatus_upd.sql! "+e.getMessage());
         }
-        return true;
+        try{
+            return Integer.parseInt(sStatus);
+        } catch (Exception e){
+            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
+        }
     }
 }

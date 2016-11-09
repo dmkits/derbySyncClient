@@ -143,16 +143,18 @@ public class ClientSyncDataToSend {
         try { //---заполнение сообщения данными синхронизации из БД---
             voRS2.next();
             //---поочередно все колонки (имя и значение) из запроса сохраняем вложениями к сообщению---
-            for (int i=1;i<voRS2.getMetaData().getColumnCount();i++) {
+            for (int i=1;i<=voRS2.getMetaData().getColumnCount();i++) {
                 String sColName= voRS2.getMetaData().getColumnName(i); //column name
-                String sColVal= voRS2.getString(i); // column value
-                if (sColVal==null) {sColVal="";};
-                //---добавление вложения к сообщению---
-                //logger.log(Level.INFO, "Adding attachment to request message ("+sColName+", "+sColVal+").");
-                AttachmentPart attachment = request.createAttachmentPart(); 
-                attachment.setContent(sColVal, "text/plain; charset=utf-8");
-                attachment.setContentId(sColName);
-                request.addAttachmentPart(attachment); 
+                if (!"ATTRIBUTES".equals(sColName)){
+                    String sColVal= voRS2.getString(i); // column value
+                    if (sColVal==null) {sColVal="";};
+                    //---добавление вложения к сообщению---
+                    //logger.log(Level.INFO, "Adding attachment to request message ("+sColName+", "+sColVal+").");
+                    AttachmentPart attachment = request.createAttachmentPart();
+                    attachment.setContent(sColVal, "text/plain; charset=utf-8");
+                    attachment.setContentId(sColName);
+                    request.addAttachmentPart(attachment);
+                }
             }
             //request.saveChanges();
             //System.out.println("REQUEST:"); // !!!IT'S FOR TESTING!!!
@@ -165,7 +167,8 @@ public class ClientSyncDataToSend {
         return request;
     }
     
-    /* Обработка ответа на запрос на прием данных от клиента. 
+    /* Обработка ответа на запрос на прием данных от клиента.
+     * Результат - полученный статус данных.
      * формат сообщения: 
      *    заголовок (Header) - наименование посылаемого сообщения,
      *    тело (Body) - наименование базы для которой пришло сообщение,
@@ -174,7 +177,7 @@ public class ClientSyncDataToSend {
      *    тело (Body)-(Child3)-(Status) - статус данных синхронизации на сервере,
      *    тело (Body)-(Child4)-(Msg) - сообщение о результате приема-применения данных синхронизации на сервере,
      *    тело (Body)-(Child5)-(AppliedDate) - дата-время применения данных на сервере. */
-    public boolean handlingResponse(SOAPMessage response) throws Exception {
+    public int handlingResponse(SOAPMessage response) throws Exception {
         logger.log(Level.INFO, "-----------Handling response message-----------");
         if (response==null) { //если полученное сообщение = null
             throw new Exception("FAILED to handle response message! Response message is NULL!"); 
@@ -191,12 +194,13 @@ public class ClientSyncDataToSend {
         } catch (Exception e) {
             throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage()); 
         }
+        String sStatus = (String)oDataFromResponse.get("Status");
         String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
         try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
             //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
             PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_upd);
             //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("STATUS")+", "+(String)oData.get("MSG")+").");
-            voPSt.setString(1,(String)oDataFromResponse.get("Status")); //Status
+            voPSt.setString(1,sStatus); //Status
             voPSt.setString(2,(String)oDataFromResponse.get("Msg")); //Msg
             voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
             voPSt.setString(4,(String)oDataFromResponse.get("ID")); //ID
@@ -206,6 +210,10 @@ public class ClientSyncDataToSend {
         } catch (Exception e) {
             throw new Exception("FAILED to prepare and execute database statement from resource syncdataout_upd.sql "+e.getMessage());
         }
-        return true;
+        try {
+            return Integer.parseInt(sStatus);
+        } catch (Exception e){
+            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
+        }
     }
 }

@@ -7,32 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/derbysyncclient-embedded.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlscripts/update_db_1_5_1.sql" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/DerbySyncClient.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/DerbySyncClient.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/README.TXT" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/cmd_start_derbysyncclient.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/derbysyncclient.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/lib/derby.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/lib/derbyclient.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/lib/jaxm-api.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/logging.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/release_notes.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/start_dbupdate.cmd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/start_dbupdate_to_1_5.cmd" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/artifact/start_derbysyncclient.cmd" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/artifacts/derby.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/derbySyncClient.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/derbySyncClient.iprj.iml" afterPath="$PROJECT_DIR$/derbySyncClient.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/derbysyncclient.properties" afterPath="$PROJECT_DIR$/derbysyncclient.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/synctriggers_cr.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/synctriggers_cr.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/synctriggers_dr.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/synctriggers_dr.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -409,12 +388,12 @@
       <workItem from="1478071643556" duration="10000" />
       <workItem from="1478071664452" duration="2835000" />
       <workItem from="1478715214420" duration="3133000" />
-      <workItem from="1478727800886" duration="1689000" />
+      <workItem from="1478727800886" duration="2284000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23867000" />
+    <option name="totallyTimeSpent" value="24462000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-3" y="23" width="1372" height="748" extended-state="6" />

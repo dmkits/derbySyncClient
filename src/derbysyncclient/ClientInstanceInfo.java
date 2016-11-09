@@ -13,6 +13,7 @@ package derbysyncclient;
  *       на данные с сервера потом отправка запросов с данными клиента)
  * v1.4 - Сделана корректная обработка пустых сообщений с сервера.
  * v1.5 - Удаление переданных на сервер данных.
+ * v.1.5.1 - передача во вложении всех колонок данных кроме колонок с названием ATTRIBUTES
  */
 public class ClientInstanceInfo {
     
@@ -22,5 +23,5 @@ public class ClientInstanceInfo {
     
     public static final String CLIENT_NAME = "DerbySyncClient";
     public static final String CLIENT_ID = "derbysyncclient";
-    public static final String CLIENT_VERSION = "1.5";
+    public static final String CLIENT_VERSION = "1.5.1";
 }
