@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
-  <artifact name="derby">
-    <output-path>$PROJECT_DIR$/out/artifacts/derby</output-path>
+  <artifact name="derbySyncClient">
+    <output-path>$PROJECT_DIR$/out/artifacts/derbySyncClient</output-path>
     <root id="root">
       <element id="archive" name="derbysyncclient.jar">
-        <element id="module-output" name="derbySyncClient.iprj" />
+        <element id="module-output" name="derbySyncClient" />
         <element id="directory" name="META-INF">
           <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
         </element>
@@ -19,6 +19,8 @@
       <element id="file-copy" path="$PROJECT_DIR$/start_dbupdate_to_1_5.cmd" />
       <element id="file-copy" path="$PROJECT_DIR$/start_derbysyncclient.cmd" />
       <element id="directory" name="log" />
+      <element id="file-copy" path="$PROJECT_DIR$/start_dsc.sh" />
+      <element id="file-copy" path="$PROJECT_DIR$/startXTerm.sh" />
     </root>
   </artifact>
 </component>

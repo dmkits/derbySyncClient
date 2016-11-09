@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="4138840800">
+    <data-source source="LOCAL" name="Derby - bata1_pos1@localhost" uuid="04b51ae8-81bd-46e9-b3f4-45439c07e5be">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/bata1_pos1</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Derby - bata1_pos1-20161102@localhost" uuid="c2c2ee10-03c1-4dc0-b2e3-b76698bc391c">
+      <driver-ref>derby.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.apache.derby.jdbc.ClientDriver</jdbc-driver>
+      <jdbc-url>jdbc:derby://localhost:1527/bata1_pos1-20161102</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

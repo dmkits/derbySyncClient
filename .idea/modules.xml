@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/derbySyncClient.iprj.iml" filepath="$PROJECT_DIR$/derbySyncClient.iprj.iml" />
+      <module fileurl="file://$PROJECT_DIR$/derbySyncClient.iml" filepath="$PROJECT_DIR$/derbySyncClient.iml" />
     </modules>
   </component>
 </project>
