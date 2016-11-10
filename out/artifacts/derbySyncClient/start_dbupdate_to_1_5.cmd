@@ -6,6 +6,8 @@ echo Starting Derby Sync Client in mode database update (updating sync objects t
 
 set DIRNAME=%~dp0
 
-set JP="%DIRNAME%DerbySyncClient.jar"
+set JP="%DIRNAME%derbysyncclient.jar"
 
 java -Djava.util.logging.config.file="%DIRNAME%logging.properties" -Ddirname.path="%DIRNAME%./" -jar %JP% -UPDATE_DB_1_5
+
+exit
