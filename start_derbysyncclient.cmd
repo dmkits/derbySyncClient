@@ -6,7 +6,7 @@ set DIRNAME=%~dp0
 cd %DIRNAME%
 echo Set working dir: %DIRNAME%
 
-set JP="%DIRNAME%derbySyncClient.jar"
+set JP="%DIRNAME%derbysyncclient.jar"
 
 java -Djava.util.logging.config.file="%DIRNAME%logging.properties" -Ddirname.path="%DIRNAME%./" -jar %JP% 
 
