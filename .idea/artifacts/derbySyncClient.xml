@@ -21,6 +21,8 @@
       <element id="directory" name="log" />
       <element id="file-copy" path="$PROJECT_DIR$/start_dsc.sh" />
       <element id="file-copy" path="$PROJECT_DIR$/startXTerm.sh" />
+      <element id="file-copy" path="$PROJECT_DIR$/start_dsc_update_db_2_33_to_app_v_1_5_1.sh" />
+      <element id="file-copy" path="$PROJECT_DIR$/start_dbupdate_db_2_33_to_app_1_5_1.cmd" />
     </root>
   </artifact>
 </component>

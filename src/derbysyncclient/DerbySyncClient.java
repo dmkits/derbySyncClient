@@ -51,37 +51,71 @@ public class DerbySyncClient {
      * Вывод стартовых и завершающих логов. 
      * Проверка регистрации приложения. Регистрация запускаемого приложения и удаление регистрации по завершении работы. */
     public static void main(final String[] args) {
-        
-        /*SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {*/
-                
-                logger.log(Level.INFO, "");
-                logger.log(Level.INFO, "");
-                logger.log(Level.INFO, "------------------------------Starting DerbySyncClient------------------------------");
-                
-                // проверка на наличие уже запущенного экземпляра приложения
-                if (isAppRegister()) {
-                    logger.log(Level.WARNING, "FAILED launch a second instance of "+ClientInstanceInfo.CLIENT_NAME+"!");
-                    return;
-                }
-                // регистрация запущенного приложения
-                instanceRegistering();
-                // формирование, отправка сообщений и прием и обработка ответов.
-                try {
-                    run(args);
-                } catch (Exception e) {
-                    logger.log(Level.WARNING, "----------!!!!!!!!!!DerbySyncClient aborted!!!!!!!!!!----------");
-                    logger.log(Level.WARNING, "CAUSE: {0}", e.getMessage());
-                }
-                
-                // удаление регистрации приложения
-                instanceUnregistering();
-                logger.log(Level.INFO, "------------------------------DerbySyncClient finished------------------------------");
-            /*};
-        });*/
+        logger.log(Level.INFO, "");
+        logger.log(Level.INFO, "");
+        logger.log(Level.INFO, "------------------------------Starting DerbySyncClient------------------------------");
+
+        // проверка на наличие уже запущенного экземпляра приложения
+        if (isAppRegister()) {
+            logger.log(Level.WARNING, "FAILED launch a second instance of " + ClientInstanceInfo.CLIENT_NAME + "!");
+            return;
+        }
+        // регистрация запущенного приложения
+        instanceRegistering();
+
+        try {
+            if (init(args)) return;//if did update
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "FAILED init " + ClientInstanceInfo.CLIENT_NAME + "! Reason:"+e.getLocalizedMessage());
+            return;
+        }
+
+        // формирование, отправка сообщений и прием и обработка ответов.
+        try {
+            run(args);
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "----------!!!!!!!!!!DerbySyncClient aborted!!!!!!!!!!----------");
+            logger.log(Level.WARNING, "CAUSE: {0}", e.getMessage());
+        }
+
+        // удаление регистрации приложения
+        instanceUnregistering();
+        logger.log(Level.INFO, "------------------------------DerbySyncClient finished------------------------------");
     }
     
+    private static boolean init(String[] args) throws Exception {
+        // чтение локальных параметров из файла настроек .properties
+        loadLocalConfig();
+        //----------регистрация драйвера базы данных, из которой извлекаются данные для отправки----------
+        regDBDriver();
+        //----------подключение к базе данных, из которой извлекаются данные для отправки----------
+        connectToDB();
+
+        if (args.length==0) return false;
+        String sArg1= args[0];
+        //---создание объектов синхронизации в базе клиента и выход если указан аргумент -CREATE_DB_SYNC_OBJECTS---
+        if (sArg1.equalsIgnoreCase("-CREATE_DB_SYNC_OBJECTS")) {
+            SyncDB.createSyncObjects(cvoDBSession);
+            return true;
+        }
+        //---обновление бд и выход если указан аргумент -UPDATE_DB_1_5---
+        if (sArg1.equalsIgnoreCase("-UPDATE_DB_1_5")) {
+            SyncDB.updateDB_1_5(cvoDBSession);
+            return true;
+        }
+        //---обновление синх. триггеров для бд в.2.33 и выход если указан аргумент -UPDATE_DB_2_33_TO_APP_1_5_1---
+        if (sArg1.equalsIgnoreCase("-UPDATE_DB_2_33_TO_APP_1_5_1")) {
+            SyncDB.updateDB_2_33_TO_APP_1_5_1(cvoDBSession);
+            return true;
+        }
+        //---удаление примененных данных синхронизации и выход если указан аргумент -DEL_APPLIED_DATA---
+        if (sArg1.equalsIgnoreCase("-DEL_APPLIED_DATA")) {
+            SyncDB.delApplSyncData(cvoDBSession, cviTermStorageDay);
+            return true;
+        }
+        return false;
+    }
+
     /** Формирование и отправка сообщений-запросов, прием и обработка сообщений-ответов.
      * @param args the command line arguments
      * Из файла локальных настроек .properties читаются локальные параметры приложения,
@@ -96,35 +130,8 @@ public class DerbySyncClient {
      * по данным из сообщения-ответа обновляются поля в таблице с информацией о данных синхронизации на отправку. 
      * Количество отправок сообщений за один сеанс работы приложения определяется локальным параметром MsgPackageCount. */
     private static void run(String[] args) throws Exception {
-        // чтение локальных параметров из файла настроек .properties
-        loadLocalConfig();
-        //----------регистрация драйвера базы данных, из которой извлекаются данные для отправки----------
-        regDBDriver(); 
-        //----------подключение к базе данных, из которой извлекаются данные для отправки----------
-        connectToDB();
-
-        if (args.length>0) {
-            String sArg1= args[0];
-            //---создание объектов синхронизации в базе клиента и выход если указан аргумент -CREATE_DB_SYNC_OBJECTS---
-            if (sArg1.equalsIgnoreCase("-CREATE_DB_SYNC_OBJECTS")) {
-                SyncDB.createSyncObjects(cvoDBSession);
-                return;
-            }
-            //---обновление бд и выход если указан аргумент -UPDATE_DB_1_5---
-            if (sArg1.equalsIgnoreCase("-UPDATE_DB_1_5")) {
-                SyncDB.updateDB_1_5(cvoDBSession);
-                return;
-            }
-            //---удаление примененных данных синхронизации и выход если указан аргумент -DEL_APPLIED_DATA---
-            if (sArg1.equalsIgnoreCase("-DEL_APPLIED_DATA")) {
-                SyncDB.delApplSyncData(cvoDBSession, cviTermStorageDay);
-                return;
-            }
-        }
-
         // ----------подготовка соединения с сервисом синхронизации на сервере----------
         prepSyncServiceConnnection();
-        
         // ----------поочередная отправка сообщений с запросами на данные с сервера и прием и обработка ответов с данными с сервера----------
         //в количестве, установленном параметром "MsgPackageCount"
         int iErrCount = 0; //счетчик неудачных отправок
@@ -142,7 +149,6 @@ public class DerbySyncClient {
                 if (iErrCount>=5) { break; } //если количество неудачных попыток обработки ответа с сервера >=5 обработка прерывается
             }
         }
-
         // ----------поочередная отправка сообщений с данными клиента для приема и применения на сервере и прием ответов по результату приема данных на сервере----------
         //в количестве, установленном параметром "MsgPackageCount"
         boolean bNoDataForSend = false, bNoDataForUpdate = false; //признаки отсутствия данных для отправки
@@ -183,7 +189,6 @@ public class DerbySyncClient {
             }
             if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
         }
-        
         try { //закрытие SOAP-соединения
             cvoSOAPConnection.close();
         } catch (Exception e) {
@@ -290,7 +295,6 @@ public class DerbySyncClient {
     
     /* Проверка на наличие уже запущенного экземпляра приложения. */
     private static boolean isAppRegister() {
-        
         try {
             Registry registry = LocateRegistry.getRegistry();           
             AppMessage m_appstub = (AppMessage) registry.lookup("AppMessage");        
@@ -305,7 +309,6 @@ public class DerbySyncClient {
     
     /* Регистрация экземпляра приложения. */
     private static void instanceRegistering() {
-        
         try {
             m_registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             m_message = new AppMessageImpl();
@@ -343,7 +346,6 @@ public class DerbySyncClient {
         } catch (Exception e){
             logger.log(Level.INFO, "FAILED to load local config parameters!");
         }
-        
         try {//установка значений настроек по умолчанию
             logger.log(Level.INFO, "Setting default local parameters.");
             cvoClientLocalConfig.loadDefault();
@@ -404,5 +406,4 @@ public class DerbySyncClient {
             throw new Exception("FAILED to prepare SOAP connection to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_NAME+"\"! "+e.getMessage());
         }
     }
-     
 }

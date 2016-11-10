@@ -62,7 +62,6 @@ public class SyncDB {
     
     /* обновление настроек и объектов базы данных предыдущих версий до v.1.5. */
     public static void updateDB_1_5(Session poDBSession) throws Exception {
-        
         logger.log(Level.INFO, "----------Updating database to DerbySyncClient v.1.5.----------");
         int[] isRes = {0,0};
         String sQuery_upddb= TextFromResource.load("/sqlscripts/update_db_1_5.sql"); //обновление настроек бд
@@ -74,12 +73,20 @@ public class SyncDB {
         logger.log(Level.WARNING, "UPDATE RESULT: statements to execute {0}, executed {1}", new Object[]{isRes[0], isRes[1]});
         logger.log(Level.INFO, "----------Database updated to DerbySyncClient v.1.5.----------");
     }
-    
+    /* обновление настроек и объектов базы данных предыдущих версий до v.1.5. */
+    public static void updateDB_2_33_TO_APP_1_5_1(Session poDBSession) throws Exception {
+        logger.log(Level.INFO, "----------Updating database v.2.33 to DerbySyncClient v.1.5.1.----------");
+        int[] isRes = {0,0};
+        String sQuery_upddb= TextFromResource.load("/sqlscripts/update_db_1_5_1.sql"); //обновление
+        execSript(poDBSession, sQuery_upddb, isRes); //выполнение скрипта
+        logger.log(Level.WARNING, "UPDATE RESULT: statements to execute {0}, executed {1}", new Object[]{isRes[0], isRes[1]});
+        logger.log(Level.INFO, "----------Database updated to DerbySyncClient v.1.5.1.----------");
+    }
+
     /* удаление примененных данных из БД. Удаляются данные и записи журнала исходящих данных синхронизации. */
     public static void delApplSyncData(Session poDBSession, int piTermStorageDay) throws Exception {
         //чтение sql-запроса из ресурса
         logger.log(Level.INFO, "----------Deleting applied data----------");
-        
         /* получение списка ID последних при закрытии чека операций отправленных и примененных записей синхронизации */
         String sQuery_sel= TextFromResource.load("/sqlscripts/syncdataout_sel_applied.sql") ;
         PreparedStatement oPSt = poDBSession.getConnection().prepareStatement(sQuery_sel);
