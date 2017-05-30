@@ -7,22 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.6.sql" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/SOAPMsgHandler.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/sqlscripts/syncdbdata_sel.sql" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/derbySyncClient/derbysyncclient.jar" afterPath="$PROJECT_DIR$/out/artifacts/derbySyncClient/derbysyncclient.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/syncdatain_upd.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/syncdatain_upd.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/syncdataout_sel.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/syncdataout_sel.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/synctables_cr.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/synctables_cr.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/release_notes.txt" afterPath="$PROJECT_DIR$/release_notes.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="derbySyncClient.iws" />
@@ -58,16 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DerbySyncClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="116" column="5" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ClientSyncDataToUpdStatus.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,11 +54,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ClientInstanceInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="57" selection-start-line="16" selection-start-column="11" selection-end-line="17" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="console.sql" pinned="false" current-in-tab="true">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3180428">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6116208">
+              <caret line="25" column="82" selection-start-line="25" selection-start-column="82" selection-end-line="25" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -149,7 +135,6 @@
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/c2c2ee10-03c1-4dc0-b2e3-b76698bc391c/console.sql" />
         <option value="$PROJECT_DIR$/src/sqlscripts/synctriggers_cr.sql" />
         <option value="$PROJECT_DIR$/src/sqlscripts/synctriggers_dr.sql" />
-        <option value="$PROJECT_DIR$/release_notes.txt" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
         <option value="$PROJECT_DIR$/start_dsc_update_db_2_33_to_app_v_1_5_1.sh" />
@@ -171,6 +156,7 @@
         <option value="$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.6.sql" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql" />
+        <option value="$PROJECT_DIR$/release_notes.txt" />
       </list>
     </option>
   </component>
@@ -615,12 +601,19 @@
       <workItem from="1481897408238" duration="290000" />
       <workItem from="1485522661166" duration="1057000" />
       <workItem from="1485531904940" duration="632000" />
-      <workItem from="1496131563993" duration="2452000" />
+      <workItem from="1496131563993" duration="3820000" />
     </task>
+    <task id="LOCAL-00001" summary="update send to server client data.">
+      <created>1496135577256</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1496135577256</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78021000" />
+    <option name="totallyTimeSpent" value="79389000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="46" y="23" width="1876" height="1183" extended-state="6" />
@@ -664,6 +657,12 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="update send to server client data." />
+    <option name="LAST_COMMIT_MESSAGE" value="update send to server client data." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -853,13 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/release_notes.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17037754">
-          <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/start_derbysyncclient.cmd">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12698413">
@@ -930,13 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33472803">
-          <caret line="17" column="57" selection-start-line="17" selection-start-column="57" selection-end-line="17" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.5.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -972,29 +957,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.029962547">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="117" selection-start-line="92" selection-start-column="117" selection-end-line="92" selection-end-column="117" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="116" column="5" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1063,10 +1025,50 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02427921">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.07017544">
+          <caret line="15" column="24" selection-start-line="15" selection-start-column="24" selection-end-line="15" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="92" column="117" selection-start-line="92" selection-start-column="117" selection-end-line="92" selection-end-column="117" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="57" selection-start-line="16" selection-start-column="11" selection-end-line="17" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/release_notes.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.030701755">
+          <caret line="5" column="82" selection-start-line="5" selection-start-column="82" selection-end-line="5" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3180428">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6116208">
+          <caret line="25" column="82" selection-start-line="25" selection-start-column="82" selection-end-line="25" selection-end-column="82" />
           <folding />
         </state>
       </provider>
