@@ -1,12 +1,3 @@
-CREATE TABLE APP.SYNCDBPROPS/*базы данных между которыми осуществляется обмен*/ (
-    ID INTEGER NOT NULL,/*ИД базы данных*/
-    DBNAME VARCHAR(256) NOT NULL,/*имя базы данных*/
-    POSNAME VARCHAR(256) NOT NULL,/*имя POS-терминала*/
-    STOCKNAME VARCHAR(256) NOT NULL,/*имя склада*/
-    PRIMARY KEY(ID)
-);
-INSERT INTO APP.SYNCDBPROPS(ID, DBNAME, POSNAME, STOCKNAME) VALUES (1, 'Bistro4', 'Касса Бистро славянка', 'Торговый зал Бистро Славянка');
-
 CREATE TABLE APP.SYNCDATAOUT/*информация о пересылаемых серверу данных и результате пересылки*/ (
     ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),/*ИД записи*/
     TABLENAME VARCHAR(256) NOT NULL,/*таблица из которой извлекаются данные*/
@@ -39,3 +30,4 @@ CREATE TABLE APP.SYNCDATAIN/*информация входящих от серв
     PRIMARY KEY(ID)
 );
 
+INSERT INTO APP.RESOURCES(ID, NAME, RESTYPE, CONTENT) VALUES ('POSClientSyncName', 'POS.clientSyncName', 0, NULL);

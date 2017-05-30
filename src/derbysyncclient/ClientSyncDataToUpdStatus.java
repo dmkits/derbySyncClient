@@ -19,49 +19,22 @@ import javax.xml.soap.SOAPMessage;
  * по ИД полученному в ответе, также обновляется поле сообщения и дата применения.
  * @author dmk.dp.ua 2014-04-15
  */
-public class ClientSyncDataToUpdStatus {
+public class ClientSyncDataToUpdStatus extends ClientSyncData {
 
     private static final Logger logger = Logger.getLogger("derbysyncclient.ClientSyncDataToUpdStatus");
     
     private Session cvoDBSession = null;
-    private HashMap cvoDataForRequest = null; //данные из таблицы синхронизации для сообщения-запроса
+    private HashMap<String,String> cvoDataForRequest = null; //данные из таблицы синхронизации для сообщения-запроса
     
     public ClientSyncDataToUpdStatus(Session oDBSession) {
         cvoDBSession = oDBSession;
         cvoDataForRequest = new HashMap();
     }
     
-    /* Получение данных первой записи из таблицы с данными о базах данных синхронизации на клиенте. */
-    private void getSyncDBPropsData() throws Exception {
-        logger.log(Level.INFO, "-----Getting sync database properties data from database-----");
-        String sQuery= TextFromResource.load("/sqlscripts/syncdbdata_sel.sql");
-        try {
-            //logger.log(Level.INFO, "Getting statement to database.");
-            cvoDataForRequest.clear(); // очистка массива с данными
-            Statement voSt=cvoDBSession.getConnection().createStatement();
-            //logger.log(Level.INFO, "Executing syncdbdata_sel.sql.");
-            ResultSet voRS= voSt.executeQuery(sQuery);
-            if (voRS.next()) {
-                cvoDataForRequest.put("DBID",voRS.getString("ID"));
-                cvoDataForRequest.put("DBName",voRS.getString("DBNAME"));
-                cvoDataForRequest.put("POSName",voRS.getString("POSNAME"));
-                cvoDataForRequest.put("StockName",voRS.getString("STOCKNAME"));
-                logger.log(Level.INFO, "Recieved sync information data from database by DBID: "+(String)cvoDataForRequest.get("DBID")); 
-                voSt.close();
-            } else {
-                logger.log(Level.INFO, "No data for request message.");
-                voSt.close();
-                throw new Exception("FAILED to get sync database properties data from database! No data in database!");
-            }
-        } catch (Exception e) {
-            throw new Exception("FAILED to get sync database properties data from database! "+e.getMessage());
-        } 
-    }
-
     /* Получение данных первой не примененной записи из БД из таблицы с информацией о данных синхронизации. */
     public boolean getSyncDataInf() throws Exception {
         logger.log(Level.INFO, "-----Getting sync information data with status=0 from database-----");
-        getSyncDBPropsData(); //получение данных свойств базы данных.
+        getPOSClientSyncNAME(cvoDataForRequest, cvoDBSession); //получение данных свойств базы данных.
         Statement voSt= null;
         try {
             //logger.log(Level.INFO, "Getting statement to database.");
@@ -70,8 +43,8 @@ public class ClientSyncDataToUpdStatus {
             //logger.log(Level.INFO, "Executing syncdataoutwithstatus_sel.sql.");
             ResultSet voRS= voSt.executeQuery(sQuery);
             if (voRS.next()) {
-                cvoDataForRequest.put("ID",voRS.getString("ID"));
-                logger.log(Level.INFO, "Recieved sync information data from database by ID: "+(String)cvoDataForRequest.get("ID"));
+                cvoDataForRequest.put(SYNC_DATA_ID, voRS.getString("ID"));
+                logger.log(Level.INFO, "Recieved sync information data from database by ID: " + cvoDataForRequest.get(SYNC_DATA_ID));
                 return true;
             } else {
                 logger.log(Level.INFO, "No data for request message.");
@@ -94,12 +67,10 @@ public class ClientSyncDataToUpdStatus {
         SOAPMessage request = null;
         try{//---создание сообщения, заполнение заголовка и тела сообщения данными с информацией о данных синхронизации, которые нужно применить---
             logger.log(Level.INFO, "-----Creating SOAP request message-----");
-            request = SOAPMsgHandler.crMsg( //создание SOAP сообщения-запроса с данными заголовка и тела
+            request = crMsg( //создание SOAP сообщения-запроса с данными заголовка и тела
                     MsgHeaderVal.REQUEST_FROM_CLIENT_TO_UPD_STATUS_DATA_MSG_NAME, //заголовок сообщения
-                    (String)cvoDataForRequest.get("DBName"), //тело сообщения
-                    new String[] {"POSName",(String)cvoDataForRequest.get("POSName")}, 
-                    new String[] {"StockName",(String)cvoDataForRequest.get("StockName")},
-                    new String[] {"ID",(String)cvoDataForRequest.get("ID")} );
+                    (String)cvoDataForRequest.get(POS_CLIENT_SYNC_NAME), //тело сообщения
+                    new String[] {SYNC_DATA_ID,cvoDataForRequest.get(SYNC_DATA_ID)} );
         } catch (Exception e) {
             logger.log(Level.WARNING, "FAILED to create SOAP request message!", e);
             throw new Exception("FAILED to create SOAP request message! "+e.getMessage());
@@ -117,12 +88,14 @@ public class ClientSyncDataToUpdStatus {
         HashMap oDataFromResponse = null; 
         try {
             logger.log(Level.INFO, "-----Reading response message body-----");
-            String sHeaderVal = SOAPMsgHandler.getMsgHeader(response); //заголовок сообщения-ответа
-            oDataFromResponse = SOAPMsgHandler.getMsgBody(response); //данные из тела из сообщения-ответа
-            logger.log(Level.INFO,"RESPONSE FROM \""+sHeaderVal+"\" TO \""+(String)oDataFromResponse.get("Body")+"\""); // !!!IT'S FOR TESTING!!!
-            logger.log(Level.INFO,"SyncData ID \""+(String)oDataFromResponse.get("ID") +"\""); // !!!IT'S FOR TESTING!!! 
-            logger.log(Level.INFO,"SyncData server ChID "+(String)oDataFromResponse.get("ChID")+
-                    ", Status "+(String)oDataFromResponse.get("Status")+", Msg \""+(String)oDataFromResponse.get("Msg")+"\", AppliedDate "+(String)oDataFromResponse.get("AppliedDate")); // !!!IT'S FOR TESTING!!! 
+            String sHeaderVal = getMsgHeader(response); //заголовок сообщения-ответа
+            oDataFromResponse = getMsgBody(response); //данные из тела из сообщения-ответа
+            logger.log(Level.INFO,"RESPONSE FROM \""+sHeaderVal+"\" TO \""+oDataFromResponse.get(POS_CLIENT_SYNC_NAME)+"\""); // !!!IT'S FOR TESTING!!!
+            logger.log(Level.INFO,"SyncDataID \""+oDataFromResponse.get(SYNC_DATA_ID) +"\""); // !!!IT'S FOR TESTING!!!
+            logger.log(Level.INFO, "SyncData server ID " + oDataFromResponse.get(SERVER_SYNC_DATA_ID)
+                    + ", Status " + oDataFromResponse.get("Status")
+                    + ", Msg \"" + oDataFromResponse.get("Msg")
+                    + "\", AppliedDate " + oDataFromResponse.get("AppliedDate")); // !!!IT'S FOR TESTING!!!
         } catch (Exception e) {
             throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage());
         }
@@ -141,7 +114,7 @@ public class ClientSyncDataToUpdStatus {
             } else {
                 voPSt.setString(4,(String)oDataFromResponse.get("AppliedDate"));
             }
-            voPSt.setString(5, (String) oDataFromResponse.get("ID")); //ID
+            voPSt.setString(5, (String) oDataFromResponse.get(SYNC_DATA_ID)); //ID
             //logger.log(Level.INFO, "Executing prepeared statement.");
             voPSt.executeUpdate();
             voPSt.close();

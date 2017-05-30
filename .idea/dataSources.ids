@@ -238,7 +238,7 @@
       <column name="RECEIPT_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
       <column name="PURPOSE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
       <column name="NOTE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="SQL161109192838830" columns="RECEIPT_ID"/>
+      <primary-key name="SQL161110090706780" columns="RECEIPT_ID"/>
       <foreign-key name="PURPOSE_ID_FK" columns="PURPOSE_ID" ref-table="RECEIPT_PURPOSES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="RECEIPT_PURPOSES" schema="APP" catalog="" type="TABLE">
@@ -246,7 +246,7 @@
       <column name="VALUE" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
       <column name="FOR_CASHIN" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
       <column name="FOR_CASHOUT" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
-      <primary-key name="SQL161109192838480" columns="ID"/>
+      <primary-key name="SQL161110090706160" columns="ID"/>
       <exported-key name="PURPOSE_ID_FK" table="RECEIPTS_PURPOSES" schema="APP" catalog="" columns="PURPOSE_ID"/>
     </table>
     <table name="RESERVATIONS" schema="APP" catalog="" type="TABLE">
@@ -354,13 +354,6 @@
       <column name="APPLIEDDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
       <column name="MSG" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="SQL150126171604590" columns="ID"/>
-    </table>
-    <table name="SYNCDBPROPS" schema="APP" catalog="" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="DBNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
-      <column name="POSNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
-      <column name="STOCKNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
-      <primary-key name="SQL150126171604270" columns="ID"/>
     </table>
     <table name="TAXCATEGORIES" schema="APP" catalog="" type="TABLE">
       <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
