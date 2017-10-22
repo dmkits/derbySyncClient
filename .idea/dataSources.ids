@@ -191,6 +191,8 @@
       <column name="ISCOM" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
       <column name="ISSCALE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
       <column name="ATTRIBUTES" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="DISCOUNT" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <column name="PRICESELLWD" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
       <primary-key name="SQL120913073228230" columns="ID"/>
       <foreign-key name="PRODUCTS_ATTRSET_FK" columns="ATTRIBUTESET_ID" ref-table="ATTRIBUTESET" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="PRODUCTS_FK_1" columns="CATEGORY" ref-table="CATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
