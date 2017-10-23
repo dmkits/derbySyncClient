@@ -1,0 +1,1 @@
+../../derby_dbs/startDerby10Server.sh

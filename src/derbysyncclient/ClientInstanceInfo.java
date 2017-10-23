@@ -16,14 +16,16 @@ package derbysyncclient;
  * v.1.5.1 - передача во вложении всех колонок данных кроме колонок с названием ATTRIBUTES
  * v.1.6 - в пакете с данными клиента для принятия сервером теперь передается и дата создания записи и ключи таблицы клиента.
  *          версия работает с сервером синхронизации 1.6.
+ * v.1.7 - версия для проекта moda.ua on node.
+ *          версия работает с сервером синхронизации modaua 1.7.
  */
 public class ClientInstanceInfo {
     
-    public static final String SERVICE_NAME = "MSSQLSyncService";
-    public static final String SERVICE_ID = "mssqlsyncservice";
-    public static final String SERVICE_VERSION = "1.6";
+    public static final String SERVICE_URL = "mduSyncService";
+    public static final String SERVICE_ID = "modauaSyncService";
+    public static final String SERVICE_VERSION = "1.7";
     
     public static final String CLIENT_NAME = "DerbySyncClient";
-    public static final String CLIENT_ID = "derbysyncclient";
-    public static final String CLIENT_VERSION = "1.6";
+    public static final String CLIENT_ID = "derbySyncClient";
+    public static final String CLIENT_VERSION = "1.7";
 }

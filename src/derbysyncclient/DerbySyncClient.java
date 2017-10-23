@@ -11,6 +11,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.soap.*;
@@ -36,6 +37,8 @@ public class DerbySyncClient {
     private static Session cvoDBSession = null;
 
     private static String cvsServiceURL = null;
+    private static HashMap<String,String> cvsPOSClientInformation = null;
+
     private static URL cvoURLEndpoint = null;
     private static SOAPConnection cvoSOAPConnection = null;
     
@@ -90,7 +93,7 @@ public class DerbySyncClient {
         regDBDriver();
         //----------подключение к базе данных, из которой извлекаются данные для отправки----------
         connectToDB();
-
+        cvsPOSClientInformation= SyncDB.getPOSClientInformation(cvoDBSession);
         if (args.length==0) return false;
         String sArg1= args[0];
         //---создание объектов синхронизации в базе клиента и выход если указан аргумент -CREATE_DB_SYNC_OBJECTS---
@@ -130,21 +133,27 @@ public class DerbySyncClient {
      * по данным из сообщения-ответа обновляются поля в таблице с информацией о данных синхронизации на отправку. 
      * Количество отправок сообщений за один сеанс работы приложения определяется локальным параметром MsgPackageCount. */
     private static void run(String[] args) throws Exception {
+
         // ----------подготовка соединения с сервисом синхронизации на сервере----------
-        prepSyncServiceConnnection();
+//        prepSyncServiceConnnection();
+        RequestToSyncService requestToSyncService= new RequestToSyncService(cvsServiceURL);
+
         // ----------поочередная отправка сообщений с запросами на данные с сервера и прием и обработка ответов с данными с сервера----------
         //в количестве, установленном параметром "MsgPackageCount"
         int iErrCount = 0; //счетчик неудачных отправок
         for (int i=1;i<=cviCountID;i++) {
-            logger.log(Level.INFO, "");
             logger.log(Level.INFO, "----------Prepearing and Sending request to get data from server and receiving and handling response----------");
             try {
-                if (!getDataFromServer()) { //запрос на данные с сервера
+//                if (!getDataFromServer()) { //запрос на данные с сервера
+//                    break; //если на сервере нет данных для клиента
+//                }
+                if (!requestToSyncService.getIncData(cvsPOSClientInformation)) { //запрос на данные с сервера
+                    logger.log(Level.INFO, "No inc sync data from server!");
                     break; //если на сервере нет данных для клиента
                 }
                 iErrCount=0; //если обработка ответа закончилась удачно- сбос счетчика неудачных попыток
             } catch (Exception e) {
-                logger.log(Level.WARNING, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\b\n FAILED: {0}", e.getMessage());
+                logger.log(Level.SEVERE, "FAILED get sync data from server: {0}", e.getMessage());
                 iErrCount++; //счетчик неудачных попыток обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток обработки ответа с сервера >=5 обработка прерывается
             }
@@ -154,45 +163,63 @@ public class DerbySyncClient {
         boolean bNoDataForSend = false, bNoDataForUpdate = false; //признаки отсутствия данных для отправки
         iErrCount = 0; //счетчик неудачных отправок
         for (int i=1;i<=cviCountID;i++) {
-            logger.log(Level.INFO, "");
             logger.log(Level.INFO, "----------Prepearing and Sending request with client data to SyncService and receiving and handling response----------");
             try {
-                if (sendClientData()) { //запрос на прием данных с клиента
-                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
+//                if (sendClientData()) { //запрос на прием данных с клиента
+//                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
+//                    bNoDataForSend=false;
+//                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
+//                } else {
+//                    bNoDataForSend=true; //нет данных для отправки
+//                }
+                HashMap<String,Object> outputSyncData= null;
+                if ((outputSyncData=SyncDB.getOutputSyncData(cvoDBSession))!=null) {
+                    //если есть данные для отправки на сервер
                     bNoDataForSend=false;
+                    requestToSyncService.sendOutData(cvsPOSClientInformation, outputSyncData);
+
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
-                } else { 
+                } else {
                     bNoDataForSend=true; //нет данных для отправки
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\b\n FAILED: {0}", e.getMessage());
+                logger.log(Level.SEVERE, "FAILED send sync data to server: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
                 continue; 
             }
-            logger.log(Level.INFO, "");
             logger.log(Level.INFO, "----------Prepearing and Sending request to update status to SyncService and receiving and handling response----------");
             try {
                 if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
-                if (sendUpdRequest()) { //запрос на обновление статуса- применение данных клиента
-                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
+//                if (sendUpdRequest()) { //запрос на обновление статуса- применение данных клиента
+//                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
+//                    bNoDataForUpdate=false;
+//                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
+//                } else {
+//                    bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
+//                }
+                HashMap<String,Object> notAppliedOutputSyncData= null;
+                if ((notAppliedOutputSyncData=SyncDB.getNotAppliedOutputSyncData(cvoDBSession, cvsPOSClientInformation))!=null) {
+                    //если есть данные для отправки
                     bNoDataForUpdate=false;
+                    requestToSyncService.applyOutData(cvsPOSClientInformation, notAppliedOutputSyncData);
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
-                } else { 
+                } else {
                     bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
                 }
             } catch (Exception e) {
-                logger.log(Level.WARNING, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\b\n FAILED: {0}", e.getMessage());
+                logger.log(Level.SEVERE, "FAILED send sync data to server to apply on server: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
                 continue; 
             }
             if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
         }
-        try { //закрытие SOAP-соединения
-            cvoSOAPConnection.close();
-        } catch (Exception e) {
-        }
+//        try { //закрытие SOAP-соединения
+//            cvoSOAPConnection.close();
+//        } catch (Exception e) {
+//        }
+        requestToSyncService.close();
     }
     
     /* Формирование и отправка сообщения-запроса на прием данных синхронизации от клиента и получение и обработка ответа с сервера о приеме данных. 
@@ -388,22 +415,22 @@ public class DerbySyncClient {
             throw new Exception("FAILED to connect to database: \""+cvsDBUrl+"\"! "+e.getMessage());
         }
     }
-    
+
     /* Подготовка URl и SOAP-соединения с сервисом синхронизации на сервере. */
     private static void prepSyncServiceConnnection() throws Exception {
         SOAPConnectionFactory scf = null;
         try {
-            logger.log(Level.INFO, "Prepearing URL to SyncService: "+cvsServiceURL+ClientInstanceInfo.SERVICE_NAME);
-            cvoURLEndpoint = new URL(cvsServiceURL+ClientInstanceInfo.SERVICE_NAME); 
+            logger.log(Level.INFO, "Prepearing URL to SyncService: "+cvsServiceURL+ClientInstanceInfo.SERVICE_URL);
+            cvoURLEndpoint = new URL(cvsServiceURL+ClientInstanceInfo.SERVICE_URL);
         } catch (Exception e) {
-            throw new Exception("FAILED to prepare URL to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_NAME+"\"! "+e.getMessage());
+            throw new Exception("FAILED to prepare URL to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_URL +"\"! "+e.getMessage());
         }
         try {
             logger.log(Level.INFO, "Prepearing SOAP connection to SyncService.");
             scf = SOAPConnectionFactory.newInstance();
             cvoSOAPConnection = scf.createConnection();
         } catch (Exception e) {
-            throw new Exception("FAILED to prepare SOAP connection to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_NAME+"\"! "+e.getMessage());
+            throw new Exception("FAILED to prepare SOAP connection to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_URL +"\"! "+e.getMessage());
         }
     }
 }

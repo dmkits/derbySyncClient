@@ -15,6 +15,6 @@ public class MsgHeaderVal {
     public static final String REQUEST_FROM_CLIENT_TO_GET_SERVER_DATA_MSG_NAME = ClientInstanceInfo.CLIENT_NAME+"_"+ClientInstanceInfo.CLIENT_VERSION+"_To_Get_Server_Data";
     public static final String REQUEST_FROM_CLIENT_TO_UPD_SATATUS_SERVER_DATA_MSG_NAME = ClientInstanceInfo.CLIENT_NAME+"_"+ClientInstanceInfo.CLIENT_VERSION+"_To_Upd_Status_Server_Data";
     
-    public static final String RESPONSE_FROM_SERVICE_MSG_NAME = ClientInstanceInfo.SERVICE_NAME+"_"+ClientInstanceInfo.SERVICE_VERSION+" Data";
+    public static final String RESPONSE_FROM_SERVICE_MSG_NAME = ClientInstanceInfo.SERVICE_URL +"_"+ClientInstanceInfo.SERVICE_VERSION+" Data";
     
 }

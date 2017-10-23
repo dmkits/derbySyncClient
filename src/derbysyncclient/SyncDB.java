@@ -3,11 +3,13 @@
  */
 package derbysyncclient;
 
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,6 +83,91 @@ public class SyncDB {
         execSript(poDBSession, sQuery_upddb, isRes); //выполнение скрипта
         logger.log(Level.WARNING, "UPDATE RESULT: statements to execute {0}, executed {1}", new Object[]{isRes[0], isRes[1]});
         logger.log(Level.INFO, "----------Database updated to DerbySyncClient v.1.5.1.----------");
+    }
+
+    public static HashMap<String,String> getPOSClientInformation(Session dbs) throws Exception {
+        logger.log(Level.INFO, "-----Getting POS client information-----");
+        String sQuery= TextFromResource.load("/sqlscripts/syncClientName_sel.sql");
+        try {
+            HashMap<String, String> result = new HashMap<>();
+            Statement voSt=dbs.getConnection().createStatement();
+            ResultSet voRS= voSt.executeQuery(sQuery);
+            String sPOSClientSyncName = null;
+            if (voRS.next()) {
+                Blob blob = voRS.getBlob("CONTENT");
+                if (blob!=null && blob.length()>0){
+                    byte[] bdata = blob.getBytes(1, (int) blob.length());
+                    sPOSClientSyncName = new String(bdata);
+                }
+                voSt.close();
+            } else {
+                voSt.close();
+                throw new Exception("FAILED to get POS client information! Reason: cannot finded POS client information in database!");
+            }
+            if (sPOSClientSyncName==null)
+                throw new Exception("FAILED to get POS client information! POS client sync name no setted!");
+            result.put("POS.clientSyncName", sPOSClientSyncName);
+            return result;
+        } catch (Exception e) {
+            throw new Exception("FAILED to get POS client information! Reason: "+e.getMessage());
+        }
+    }
+
+    /* Получение данных первой не отправленной записи из БД из таблицы с информацией о данных синхронизации. */
+    public static HashMap<String,Object> getOutputSyncData(Session dbs) throws Exception {
+        logger.log(Level.INFO, "-----Getting sync information data from database-----");
+        try {
+            HashMap<String,Object> result= new HashMap<>();
+            //logger.log(Level.INFO, "Getting statement to database.");
+            Statement voSt=dbs.getConnection().createStatement();
+            String sQuery= TextFromResource.load("/sqlscripts/syncdataout_sel.sql");
+            //logger.log(Level.INFO, "Executing syncdataout_sel.sql.");
+            ResultSet voRS= voSt.executeQuery(sQuery);
+            if (voRS.next()) {
+                String sID=voRS.getString("ID");
+                result.put("ID",sID);
+                result.put("CRDATE",voRS.getString("CRDATE"));
+                result.put("TABLENAME",voRS.getString("TABLENAME"));
+                result.put("OTYPE",voRS.getString("OTYPE"));
+                result.put("TABLEKEY1IDNAME",voRS.getString("TABLEKEY1IDNAME"));
+                result.put("TABLEKEY1IDVAL",voRS.getString("TABLEKEY1IDVAL"));
+                result.put("TABLEKEY2IDNAME",voRS.getString("TABLEKEY2IDNAME"));
+                result.put("TABLEKEY2IDVAL", voRS.getString("TABLEKEY2IDVAL"));
+                logger.log(Level.INFO, "Recieved sync information data from database by ID: " + sID);
+                voSt.close();
+                return result;
+            } else {
+                logger.log(Level.INFO, "No output syn data for send to server.");
+                voSt.close();
+                return null;
+            }
+        } catch (Exception e) {
+            throw new Exception("FAILED to get output sync data from database! "+e.getLocalizedMessage());
+        }
+    }
+    /* Получение данных первой не примененной записи из БД из таблицы с информацией о данных синхронизации. */
+    public static HashMap<String,Object> getNotAppliedOutputSyncData(Session dbs, HashMap<String,String> POSClientInformation) throws Exception {
+        logger.log(Level.INFO, "-----Getting sync information data with status=0 from database-----");
+        Statement voSt= null;
+        try {
+            HashMap<String,Object> result= new HashMap<>();
+            //logger.log(Level.INFO, "Getting statement to database.");
+            voSt=dbs.getConnection().createStatement();
+            String sQuery= TextFromResource.load("/sqlscripts/syncdataoutwithstatus_sel.sql");
+            //logger.log(Level.INFO, "Executing syncdataoutwithstatus_sel.sql.");
+            ResultSet voRS= voSt.executeQuery(sQuery);
+            if (voRS.next()) {
+                String sID=voRS.getString("ID");
+                result.put("ID", sID);
+                logger.log(Level.INFO, "Recieved sync information data from database by ID: " + sID);
+                return result;
+            } else {
+                logger.log(Level.INFO, "No not applied output syn data for send to server.");
+                return null;
+            }
+        } catch (Exception e) {
+            throw new Exception("FAILED to get not applied output sync data from database! "+e.getMessage());
+        }
     }
 
     /* удаление примененных данных из БД. Удаляются данные и записи журнала исходящих данных синхронизации. */

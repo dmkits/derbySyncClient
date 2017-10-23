@@ -13,7 +13,7 @@ import java.util.Properties;
 
 /** ClientLocalConfig
  * Локальные настройки клиента.
- * По умолчанию локальные настройки хранятся в папке приложения в файле derbysyncclient.properties.
+ * По умолчанию локальные настройки хранятся в папке приложения в файле config.properties.
  * Содержит методы чтения настроек из файла, записи настроек в файл,
  *  метод записи значений и получения значений настроек по ключу,
  *  метод, устанавливающий настройки по умолчанию, метод удаления файла настроек.
@@ -49,7 +49,7 @@ public class ClientLocalConfig {
     private File getDefaultConfigFile() {
         String dirname = System.getProperty("dirname.path");
         dirname = dirname == null ? "./" : dirname;
-        return new File(new File(dirname), ClientInstanceInfo.CLIENT_ID + ".properties");
+        return new File(new File(dirname), "config.properties");
     }
     
     public File getConfigFile() {
@@ -77,10 +77,8 @@ public class ClientLocalConfig {
     }
     
     public void loadDefault() {
-        
         String dirname = System.getProperty("dirname.path");
         dirname = dirname == null ? "./" : dirname;
-        
         //---------- data for connect to derby database ----------
         //m_propsconfig.setProperty("db.driverlib", new File(new File(dirname), "lib/derby.jar").getAbsolutePath());
         //m_propsconfig.setProperty("db.driver", "org.apache.derby.jdbc.EmbeddedDriver");
@@ -89,36 +87,30 @@ public class ClientLocalConfig {
         m_propsconfig.setProperty("db.URL", "jdbc:derby://localhost:1527/<databasename>");
         m_propsconfig.setProperty("db.user", "APP");
         m_propsconfig.setProperty("db.password", "APP");
-
         //---------- data for connect to hsqldb database ----------
 //        m_propsconfig.setProperty("db.driverlib", new File(new File(dirname), "lib/hsqldb.jar").getAbsolutePath());
 //        m_propsconfig.setProperty("db.driver", "org.hsqldb.jdbcDriver");
 //        m_propsconfig.setProperty("db.URL", "jdbc:hsqldb:file:" + new File(new File(System.getProperty("user.home")), AppLocalization.APP_ID + "-db").getAbsolutePath() + ";shutdown=true");
 //        m_propsconfig.setProperty("db.user", "sa");
 //        m_propsconfig.setProperty("db.password", "");
-        
         //---------- data for connect to mysql database ----------
 //        m_propsconfig.setProperty("db.driver", "com.mysql.jdbc.Driver");
 //        m_propsconfig.setProperty("db.URL", "jdbc:mysql://localhost:3306/database");
 //        m_propsconfig.setProperty("db.user", "user");         
 //        m_propsconfig.setProperty("db.password", "password");
-        
         //---------- data for connect to postgresql database ----------
 //        m_propsconfig.setProperty("db.driver", "org.postgresql.Driver");
 //        m_propsconfig.setProperty("db.URL", "jdbc:postgresql://localhost:5432/database");
 //        m_propsconfig.setProperty("db.user", "user");         
 //        m_propsconfig.setProperty("db.password", "password");        
-
         //---------- data for connect to SyncService ----------
-        m_propsconfig.setProperty("SyncService.URL", "http://localhost:8080/MSSQLSyncService/"); //URL сервиса без имени службы
-        
+        m_propsconfig.setProperty("SyncService.URL", "http://localhost:8080/"); //URL сервиса без имени службы
         m_propsconfig.setProperty("MsgPackageCount", "1000"); // максимальное кол-во пакетов, отправляемых за 1 раз
         /* срок хранения данных дней (свыше которого переданные и примененные данные удаляются вместе с журналом передачи */
         m_propsconfig.setProperty("TermStorageDay", "7"); 
 }
 
     public void save() throws IOException {
-        
         OutputStream out = new FileOutputStream(configfile);
         if (out != null) {
             m_propsconfig.store(out, ClientInstanceInfo.CLIENT_NAME + ". Configuration file.");
