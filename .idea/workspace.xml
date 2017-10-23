@@ -6,15 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
+    <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="process v_1.7 by JSON requests for node syncService">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -644,7 +636,7 @@
       <workItem from="1508773820526" duration="6547000" />
       <workItem from="1508787577235" duration="85000" />
       <workItem from="1508787686612" duration="27000" />
-      <workItem from="1508787743059" duration="7650000" />
+      <workItem from="1508787743059" duration="7892000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -682,11 +674,17 @@
       <option name="project" value="LOCAL" />
       <updated>1508782666048</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="process v_1.7 by JSON requests for node syncService">
+      <created>1508796549195</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1508796549195</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122900000" />
+    <option name="totallyTimeSpent" value="123142000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-2" y="-27" width="1370" height="801" extended-state="6" />
