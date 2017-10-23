@@ -56,7 +56,7 @@ public class DerbySyncClient {
     public static void main(final String[] args) {
         logger.log(Level.INFO, "");
         logger.log(Level.INFO, "");
-        logger.log(Level.INFO, "------------------------------Starting DerbySyncClient------------------------------");
+        logger.log(Level.INFO, "STARTING DerbySyncClient...");
 
         // проверка на наличие уже запущенного экземпляра приложения
         if (isAppRegister()) {
@@ -83,7 +83,7 @@ public class DerbySyncClient {
 
         // удаление регистрации приложения
         instanceUnregistering();
-        logger.log(Level.INFO, "------------------------------DerbySyncClient finished------------------------------");
+        logger.log(Level.INFO, "FINISHED DerbySyncClient.");
     }
     
     private static boolean init(String[] args) throws Exception {
@@ -119,41 +119,41 @@ public class DerbySyncClient {
         return false;
     }
 
-    /** Формирование и отправка сообщений-запросов, прием и обработка сообщений-ответов.
+    /** Формирование, отправка запросов к службе синхронизации на сервере, получение и обработка ответов.
      * @param args the command line arguments
-     * Из файла локальных настроек .properties читаются локальные параметры приложения,
-     * производится соединение с сервисом синхронизации на сервере,
-     * производится соединение с БД derby.
-     * и из таблицы с информацией о данных синхронизации на отправку читаются данные.
-     * Сначала извлекаются данные для применения, если данные для применения есть формируется и отправляется запрос на применение, 
-     * если данных на применение нет, извлекаются данные на прием и отправляется запрос на прием, 
-     * затем снова извлекаются данные на применение и отправляется запрос на применение.
-     * При формировании запроса на прием считанные данные записываются в сообщение-запрос, также в сообщение приложением записываются сами данные синхронизации,
-     * сообщение-запрос отправляется сервису синхронизации на сервере и принимается сообщение-ответ,
-     * по данным из сообщения-ответа обновляются поля в таблице с информацией о данных синхронизации на отправку. 
+     * Из файла локальных настроек config.properties читаются локальные параметры приложения,
+     *   производится соединение с БД derby.
+     * Сначала на сервер отправляются запросы на входящие данные синхронизации.
+     * Полученные данные сохраняются в таблице входящих данных синхронизации и применяются
+     *   (выполняются запросы на вставку/обновление данных в соответствующих таблицах данных).
+     * Далее извлекаются данные для сохранения на сервере,
+     *   если данные для сохранения есть, отправляется запрос с исходящими данными синхронизации для сохранения сервере,
+     *   если данных на сохранение нет, извлекаются данные на применение и отправляется запрос на применение данных на сервере,
+     *   затем снова извлекаются данные на сохранение и т.д.
+     * При формировании запроса на сохранение извлекаются данные из таблицы исходящих данных синхронизации,
+     *   а также извлекаются сами данные синхронизации из соответствующих таблиц с данными.
+     * По результату сохранения и применения данных на сервере сервер отправляет ответ с результатами сохранения/применения
+     *   исходящих данных на сервере, на основании которых обновляется статус, сообщения и даты обновления и применения
+     *   данных в таблице исходящих данных синхронизации.
      * Количество отправок сообщений за один сеанс работы приложения определяется локальным параметром MsgPackageCount. */
     private static void run(String[] args) throws Exception {
 
-        // ----------подготовка соединения с сервисом синхронизации на сервере----------
-//        prepSyncServiceConnnection();
         RequestToSyncService requestToSyncService= new RequestToSyncService(cvsServiceURL);
 
-        // ----------поочередная отправка сообщений с запросами на данные с сервера и прием и обработка ответов с данными с сервера----------
+        // ---поочередная отправка сообщений на входящие данные синхронизации с сервера, сохранение и применение данных с сервера,
+        // отправка ответов с результатами сохранения и применения входящих данных---
         //в количестве, установленном параметром "MsgPackageCount"
         int iErrCount = 0; //счетчик неудачных отправок
         for (int i=1;i<=cviCountID;i++) {
-            logger.log(Level.INFO, "----------Prepearing and Sending request to get data from server and receiving and handling response----------");
+            logger.log(Level.INFO, "REQUEST TO GET SYNC INC DATA...");
             try {
-//                if (!getDataFromServer()) { //запрос на данные с сервера
-//                    break; //если на сервере нет данных для клиента
-//                }
-                if (!requestToSyncService.getIncData(cvsPOSClientInformation)) { //запрос на данные с сервера
-                    logger.log(Level.INFO, "No inc sync data from server!");
+                if (!requestToSyncService.getSyncIncData(cvsPOSClientInformation)) { //запрос на данные с сервера
+                    logger.log(Level.INFO, "No sync inc data from server!");
                     break; //если на сервере нет данных для клиента
                 }
                 iErrCount=0; //если обработка ответа закончилась удачно- сбос счетчика неудачных попыток
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "FAILED get sync data from server: {0}", e.getMessage());
+                logger.log(Level.SEVERE, "FAILED get sync inc data from server! Reason: {0}", e.getMessage());
                 iErrCount++; //счетчик неудачных попыток обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток обработки ответа с сервера >=5 обработка прерывается
             }
@@ -163,161 +163,47 @@ public class DerbySyncClient {
         boolean bNoDataForSend = false, bNoDataForUpdate = false; //признаки отсутствия данных для отправки
         iErrCount = 0; //счетчик неудачных отправок
         for (int i=1;i<=cviCountID;i++) {
-            logger.log(Level.INFO, "----------Prepearing and Sending request with client data to SyncService and receiving and handling response----------");
+            logger.log(Level.INFO, "REQUEST TO STORE SYNC OUT DATA...");
             try {
-//                if (sendClientData()) { //запрос на прием данных с клиента
-//                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
-//                    bNoDataForSend=false;
-//                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
-//                } else {
-//                    bNoDataForSend=true; //нет данных для отправки
-//                }
-                HashMap<String,Object> outputSyncData= null;
-                if ((outputSyncData=SyncDB.getOutputSyncData(cvoDBSession))!=null) {
+                HashMap<String,String> outputSyncData= null;
+                if ((outputSyncData=SyncDB.getOutSyncData(cvoDBSession))!=null) {
                     //если есть данные для отправки на сервер
                     bNoDataForSend=false;
-                    requestToSyncService.sendOutData(cvsPOSClientInformation, outputSyncData);
+                    HashMap<String,String> outputSyncDataValues=
+                            SyncDB.getOutSyncDataValues(cvoDBSession, outputSyncData);
+                    requestToSyncService.storeSyncOutData(cvsPOSClientInformation, outputSyncData, outputSyncDataValues);
 
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else {
                     bNoDataForSend=true; //нет данных для отправки
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "FAILED send sync data to server: {0}", e.getLocalizedMessage());
+                logger.log(Level.SEVERE, "FAILED store sync out data to server! Reason: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
                 continue; 
             }
-            logger.log(Level.INFO, "----------Prepearing and Sending request to update status to SyncService and receiving and handling response----------");
+            logger.log(Level.INFO, "REQUEST TO APPLY SYNC OUT DATA...");
             try {
                 if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
-//                if (sendUpdRequest()) { //запрос на обновление статуса- применение данных клиента
-//                    //если есть данные для отправки запроса с данными клиента и произведены отправка запроса и получение ответа
-//                    bNoDataForUpdate=false;
-//                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
-//                } else {
-//                    bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
-//                }
                 HashMap<String,Object> notAppliedOutputSyncData= null;
-                if ((notAppliedOutputSyncData=SyncDB.getNotAppliedOutputSyncData(cvoDBSession, cvsPOSClientInformation))!=null) {
+                if ((notAppliedOutputSyncData=SyncDB.getNotAppliedOutputSyncData(cvoDBSession))!=null) {
                     //если есть данные для отправки
                     bNoDataForUpdate=false;
-                    requestToSyncService.applyOutData(cvsPOSClientInformation, notAppliedOutputSyncData);
+                    requestToSyncService.applySyncOutData(cvsPOSClientInformation, notAppliedOutputSyncData);
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else {
                     bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "FAILED send sync data to server to apply on server: {0}", e.getLocalizedMessage());
+                logger.log(Level.SEVERE, "FAILED apply sync out data on server! Reason: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
                 continue; 
             }
             if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
         }
-//        try { //закрытие SOAP-соединения
-//            cvoSOAPConnection.close();
-//        } catch (Exception e) {
-//        }
         requestToSyncService.close();
-    }
-    
-    /* Формирование и отправка сообщения-запроса на прием данных синхронизации от клиента и получение и обработка ответа с сервера о приеме данных. 
-       Если нет данных для отправки - результат false,
-       если есть данные и отправка, получение ответа и обработка ответа прошли удачно-результат true.
-       В случае ошибок генерируются исключения. */
-    private static boolean sendClientData() throws Exception {
-        SOAPMessage request;
-        ClientSyncDataToSend oCSDTS = new ClientSyncDataToSend(cvoDBSession);
-        try { //---создание сообщения-запроса---
-            if (!oCSDTS.getSyncDataInf()) { return false; } //если в БД клиента в таблице синхронизации нет данных для отправки на прием на сервере
-            request = oCSDTS.getRequest(); //получение сообщения-запроса
-        } catch (Exception e) {
-            throw new Exception("FAILED to get SOAP request message! "+e.getMessage());
-        }
-        SOAPMessage response;
-        try { //---отправка сообщения-запроса и получение сообщения-ответа---
-            logger.log(Level.INFO, "Sending request message and receiving response message.");
-            response = cvoSOAPConnection.call(request, cvoURLEndpoint);
-        } catch (Exception e) {
-            throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
-        }
-        try { //---обработка ответа---
-            int iDataState;
-            if ( (iDataState=oCSDTS.handlingResponse(response))<0)
-                throw new Exception("FAILED to success handle SOAP response message! Reason: data state is "+Integer.toString(iDataState)+"!");
-        } catch (Exception e) {
-            throw new Exception("FAILED to handle SOAP response message! "+e.getMessage());
-        }
-        return true;
-    }
-    
-    /* Формирование и отправка сообщения-запроса на применение данных синхронизации от клиента и получение и обработка ответа с сервера о применении данных. 
-       Если нет данных для отправки - результат false,
-       если есть данные и отправка, получение ответа и обработка ответа прошли удачно и статус применения данных >0 -результат true.
-       В случае ошибок генерируются исключения. */
-    private static boolean sendUpdRequest() throws Exception {
-        SOAPMessage request;
-        ClientSyncDataToUpdStatus CSDTUS2 = new ClientSyncDataToUpdStatus(cvoDBSession);
-        try { //---создание сообщения-запроса---
-            if (!CSDTUS2.getSyncDataInf()) { return false; } //если в БД клента в таблице синхронзации нет данных для отправки на применение на сервере
-            request = CSDTUS2.getRequest(); //получение сообщения-запроса
-        } catch (Exception e) {
-            throw new Exception("FAILED to get SOAP request message! "+e.getMessage());
-        }
-        SOAPMessage response;
-        try { //---отправка сообщения-запроса и получение сообщения-ответа---
-            logger.log(Level.INFO, "Sending request message and receiving response message.");
-            response = cvoSOAPConnection.call(request, cvoURLEndpoint);
-        } catch (Exception e) {
-            throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
-        }
-        try { //---обработка ответа---
-            int iDataAppliedState;
-            if ( !((iDataAppliedState=CSDTUS2.handlingResponse(response))>0) )
-                throw new Exception("FAILED to success handle SOAP response message! Reason: data state is "+Integer.toString(iDataAppliedState)+"!");
-        } catch (Exception e) {
-            throw new Exception("FAILED to handle SOAP response message! "+e.getMessage());
-        }
-        return true;
-    }
-    
-    /* Формирование и отправка сообщения-запроса на данные с сервера и получение и обработка ответа с данными с сервера,
-     * после чего формирование и отправка запроса с данными о результате приема-применения данных. */
-    private static boolean getDataFromServer() throws Exception {
-        SOAPMessage request;
-        ClientSyncDataToGet CSDTG = new ClientSyncDataToGet(cvoDBSession);
-        try { //---создание сообщения-запроса---
-            request = CSDTG.getRequest();
-        } catch (Exception e) {
-            throw new Exception("FAILED to get SOAP request message! "+e.getMessage());
-        }
-        SOAPMessage response = null;
-        try { //---отправка сообщения-запроса и получение сообщения-ответа---
-            logger.log(Level.INFO, "Sending request message and receiving response message.");
-            response = cvoSOAPConnection.call(request, cvoURLEndpoint);
-        } catch (Exception e) {
-            throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
-        }
-        try { //---обработка ответа---
-            if (!CSDTG.handlingResponse(response)) { //если пришедшее сообщение пустое без данных с сервера
-                return false;
-            }
-        } catch (Exception e) {
-            throw new Exception("FAILED to handle SOAP response message! "+e.getMessage());
-        }
-        try { //---создание сообщения-запроса с данными о результате получения и применения данных с сервера---
-            request = CSDTG.getRequestWithResult();
-        } catch (Exception e) {
-            throw new Exception("FAILED to get SOAP request message! "+e.getMessage());
-        }
-        try { //---отправка сообщения-запроса и получение сообщения-ответа---
-            logger.log(Level.INFO, "Sending request message and receiving response message.");
-            response = cvoSOAPConnection.call(request, cvoURLEndpoint);
-        } catch (Exception e) {
-            throw new Exception("FAILED to send SOAP request message to sync service! "+e.getMessage());
-        }
-        return true;
     }
     
     /* Проверка на наличие уже запущенного экземпляра приложения. */
@@ -397,8 +283,10 @@ public class DerbySyncClient {
     private static void regDBDriver() throws Exception {
         logger.log(Level.INFO, "Registering database driver.");
         try {
-            ClassLoader cloader = new URLClassLoader(new URL[] {new File(cvoClientLocalConfig.getProperty("db.driverlib")).toURI().toURL()});
-            DriverManager.registerDriver((Driver) Class.forName(cvoClientLocalConfig.getProperty("db.driver"), true, cloader).newInstance());
+            ClassLoader cloader =
+                    new URLClassLoader(new URL[] {new File(cvoClientLocalConfig.getProperty("db.driverlib")).toURI().toURL()});
+            DriverManager.registerDriver(
+                    (Driver) Class.forName(cvoClientLocalConfig.getProperty("db.driver"), true, cloader).newInstance());
         } catch (Exception e) {
             throw new Exception("FAILED to register database driver! "+e.getMessage());
         }
@@ -413,24 +301,6 @@ public class DerbySyncClient {
             cvoDBSession.connect();
         } catch (Exception e) {
             throw new Exception("FAILED to connect to database: \""+cvsDBUrl+"\"! "+e.getMessage());
-        }
-    }
-
-    /* Подготовка URl и SOAP-соединения с сервисом синхронизации на сервере. */
-    private static void prepSyncServiceConnnection() throws Exception {
-        SOAPConnectionFactory scf = null;
-        try {
-            logger.log(Level.INFO, "Prepearing URL to SyncService: "+cvsServiceURL+ClientInstanceInfo.SERVICE_URL);
-            cvoURLEndpoint = new URL(cvsServiceURL+ClientInstanceInfo.SERVICE_URL);
-        } catch (Exception e) {
-            throw new Exception("FAILED to prepare URL to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_URL +"\"! "+e.getMessage());
-        }
-        try {
-            logger.log(Level.INFO, "Prepearing SOAP connection to SyncService.");
-            scf = SOAPConnectionFactory.newInstance();
-            cvoSOAPConnection = scf.createConnection();
-        } catch (Exception e) {
-            throw new Exception("FAILED to prepare SOAP connection to SyncService \""+cvsServiceURL+ClientInstanceInfo.SERVICE_URL +"\"! "+e.getMessage());
         }
     }
 }

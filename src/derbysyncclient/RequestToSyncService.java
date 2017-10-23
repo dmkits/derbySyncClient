@@ -10,9 +10,9 @@ public class RequestToSyncService extends JSONRequest{
     static String SYNC_SERVICE_URI = "syncService";
     static String SYNC_SERVICE_CLIENT_REQUEST_HEADER = "sync-service-client";
     static String SYNC_SERVICE_CLIENT_REQUEST_TYPE = "syncServiceClientRequestType";
-    static String REQUEST_TYPE_GET_INC_DATA = "getIncData";
-    static String REQUEST_TYPE_SEND_OUT_DATA = "sendOutData";
-    static String REQUEST_TYPE_APPLY_OUT_DATA = "applyOutData";
+    static String REQUEST_TYPE_GET_INC_DATA = "getSyncIncData";
+    static String REQUEST_TYPE_SEND_OUT_DATA = "storeSyncOutData";
+    static String REQUEST_TYPE_APPLY_OUT_DATA = "applySyncOutData";
 
     public static String POS_NAME = "POSName";
 
@@ -32,23 +32,26 @@ public class RequestToSyncService extends JSONRequest{
         request.addHeader(SYNC_SERVICE_CLIENT_REQUEST_HEADER, ClientInstanceInfo.CLIENT_ID+"_"+ClientInstanceInfo.CLIENT_VERSION);
     }
 
-    private HashMap<String,Object> postToSyncService(HashMap<String,String> data, HashMap<String,Object> dataItem) throws Exception {
+    private HashMap<String,Object> postToSyncService(HashMap<String,String> data,
+                                                     HashMap<String,String> dataItem,
+                                                     HashMap<String,String> dataItemValues) throws Exception {
         HashMap<String,Object> dataToSend= new HashMap<>();
         dataToSend.put(POS_NAME,data.get("POS.clientSyncName"));
         dataToSend.put(SYNC_SERVICE_CLIENT_REQUEST_TYPE,data.get(SYNC_SERVICE_CLIENT_REQUEST_TYPE));
         if(dataItem!=null) dataToSend.put("dataItem",dataItem);
+        if(dataItem!=null) dataToSend.put("dataItemValues",dataItemValues);
         HashMap<String,Object> syncServiceDataFromService= post(dataToSend);
         String sError=null;
         if(syncServiceDataFromService.get("error")!=null) sError=syncServiceDataFromService.get("error").toString();
         if(sError!=null)
-            throw new Exception("Failed get inc data from server! Reason:"+sError);
+            throw new Exception("Failed post to sync service! Reason:"+sError);
         return (HashMap)syncServiceDataFromService.get("resultItem");
     }
     private HashMap<String,Object> postToSyncService(HashMap<String,String> data) throws Exception {
-        return postToSyncService(data,null);
+        return postToSyncService(data,null,null);
     }
 
-    public boolean getIncData(HashMap<String,String> posClientInformation) throws Exception {
+    public boolean getSyncIncData(HashMap<String, String> posClientInformation) throws Exception {
         try {
             posClientInformation.put(SYNC_SERVICE_CLIENT_REQUEST_TYPE,REQUEST_TYPE_GET_INC_DATA);
             HashMap<String,Object> incSyncData= postToSyncService(posClientInformation);
@@ -56,30 +59,30 @@ public class RequestToSyncService extends JSONRequest{
 
             return true;
         } catch (Exception e){
-            throw new Exception("Failed post request! Reason:"+e.getLocalizedMessage());
+            throw new Exception("Failed request to get sync inc data! Reason:"+e.getLocalizedMessage());
         }
     }
-    public boolean sendOutData(HashMap<String,String> posClientInformation,
-                               HashMap<String,Object> posClientOutData) throws Exception {
+    public boolean storeSyncOutData(HashMap<String, String> posClientInformation,
+                                    HashMap<String, String> posClientOutData,
+                                    HashMap<String, String> posClientOutDataValues) throws Exception {
         try {
             posClientInformation.put(SYNC_SERVICE_CLIENT_REQUEST_TYPE, REQUEST_TYPE_SEND_OUT_DATA);
-
-
-            HashMap<String,Object> outSyncDataResult= postToSyncService(posClientInformation,posClientOutData);
+            HashMap<String,Object> outSyncDataResult=
+                    postToSyncService(posClientInformation,posClientOutData,posClientOutDataValues);
 
             return true;
         } catch (Exception e){
-            throw new Exception("Failed post request! Reason:"+e.getLocalizedMessage());
+            throw new Exception("Failed request to store sync out data! Reason:"+e.getLocalizedMessage());
         }
     }
-    public boolean applyOutData(HashMap<String,String> posClientInformation,
-                                HashMap<String,Object> posClientOutData) throws Exception {
+    public boolean applySyncOutData(HashMap<String, String> posClientInformation,
+                                    HashMap<String, Object> posClientOutData) throws Exception {
         try {
             posClientInformation.put(SYNC_SERVICE_CLIENT_REQUEST_TYPE,REQUEST_TYPE_APPLY_OUT_DATA);
             postToSyncService(posClientInformation);
             return true;
         } catch (Exception e){
-            throw new Exception("Failed post request! Reason:"+e.getLocalizedMessage());
+            throw new Exception("Failed request to apply sync out data! Reason:"+e.getLocalizedMessage());
         }
     }
 }

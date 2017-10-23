@@ -7,24 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/commons-logging-1.2.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/gson-2.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/httpclient-4.5.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/httpclient-win-4.5.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/httpcore-4.4.6.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bash_start_derbysyncclient.txt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/derbysyncclient-embedded.properties" afterPath="$PROJECT_DIR$/config-embedded.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/derbysyncclient-net.properties" afterPath="$PROJECT_DIR$/config-net.properties" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/derbysyncclient.properties" afterPath="$PROJECT_DIR$/config.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/derbySyncClient.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/derbySyncClient.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" afterPath="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -61,24 +51,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ClientSyncDataToUpdStatus.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-              <folding>
-                <element signature="e#0#7551#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DerbySyncClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="175" column="35" selection-start-line="175" selection-start-column="21" selection-end-line="175" selection-end-column="35" />
+              <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,98 +67,33 @@
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="131" column="16" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="16" />
+              <caret line="469" column="0" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="0" />
               <folding>
-                <marker date="1508777466060" expanded="true" signature="14466:14513" placeholder="delete from ..." />
-                <marker date="1508777466060" expanded="true" signature="15453:15491" placeholder="delete from ..." />
+                <marker date="1508794931045" expanded="true" signature="9304:9399" placeholder="select * fro..missingValue..." />
+                <marker date="1508794931045" expanded="true" signature="34864:34911" placeholder="delete from ..." />
+                <marker date="1508794931045" expanded="true" signature="35851:35889" placeholder="delete from ..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientSyncDataToSend.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="47" column="50" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
-              <folding>
-                <element signature="e#0#12774#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <marker date="1480285974000" expanded="true" signature="6677:6779" placeholder="select * fro..missingValue..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientSyncDataToGet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-              <folding>
-                <element signature="e#0#16342#0" expanded="false" />
-                <element signature="imports" expanded="false" />
-                <marker date="1480279290000" expanded="true" signature="8192:8250" placeholder="select missi..missingValue..." />
-                <marker date="1480279290000" expanded="true" signature="9489:9546" placeholder="update missi..." />
-                <marker date="1480279290000" expanded="true" signature="11447:11521" placeholder="insert into ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RequestToSyncService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RequestToSyncService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.4528302">
+              <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSONRequest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JSONRequest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33231708">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientSyncData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MsgHeaderVal.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#1068#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientInstanceInfo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#1445#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -228,7 +140,6 @@
         <option value="$PROJECT_DIR$/src/derbysyncclient/SOAPMsgHandler.java" />
         <option value="$PROJECT_DIR$/src/sqlscripts/syncdbdata_sel.sql" />
         <option value="$PROJECT_DIR$/src/sqlscripts/synctables_cr.sql" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java" />
         <option value="$PROJECT_DIR$/src/sqlscripts/syncdatain_upd.sql" />
         <option value="$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.6.sql" />
@@ -244,6 +155,7 @@
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
       </list>
@@ -257,10 +169,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="46" />
-    <option name="y" value="23" />
-    <option name="width" value="1876" />
-    <option name="height" value="1183" />
+    <option name="x" value="-2" />
+    <option name="y" value="-27" />
+    <option name="width" value="1370" />
+    <option name="height" value="801" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -285,8 +197,9 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -375,7 +288,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -729,7 +641,10 @@
       <workItem from="1508689585902" duration="3069000" />
       <workItem from="1508746367269" duration="17590000" />
       <workItem from="1508765875194" duration="5542000" />
-      <workItem from="1508773820526" duration="6425000" />
+      <workItem from="1508773820526" duration="6547000" />
+      <workItem from="1508787577235" duration="85000" />
+      <workItem from="1508787686612" duration="27000" />
+      <workItem from="1508787743059" duration="7650000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -761,19 +676,25 @@
       <option name="project" value="LOCAL" />
       <updated>1508689983653</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="process v_1.7 by JSON requests for node syncService">
+      <created>1508782666048</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1508782666048</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="115016000" />
+    <option name="totallyTimeSpent" value="122900000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="46" y="23" width="1876" height="1183" extended-state="6" />
+    <frame x="-2" y="-27" width="1370" height="801" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -781,22 +702,22 @@
       <window_info id="GitLabIntegration" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286119" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32766762" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32766762" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32591414" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17868853" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24622357" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14754099" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35599622" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35530087" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4533459" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -818,7 +739,8 @@
     <MESSAGE value="update script." />
     <MESSAGE value="update files and artifact." />
     <MESSAGE value="update syncClientName_sel.sql." />
-    <option name="LAST_COMMIT_MESSAGE" value="update syncClientName_sel.sql." />
+    <MESSAGE value="process v_1.7 by JSON requests for node syncService" />
+    <option name="LAST_COMMIT_MESSAGE" value="process v_1.7 by JSON requests for node syncService" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -838,18 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="145" column="28" selection-start-line="145" selection-start-column="28" selection-end-line="145" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#12774#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1480285974000" expanded="true" signature="6677:6779" placeholder="select * fro..missingValue..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -864,34 +774,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12774#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1480285974000" expanded="true" signature="6677:6779" placeholder="select * fro..missingValue..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdataout_sel.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#12774#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1480285974000" expanded="true" signature="6677:6779" placeholder="select * fro..missingValue..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1022,13 +908,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlscripts/synctables_cr.sql">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6942801">
           <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdatain_sel.sql">
@@ -1053,13 +939,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.6.sql">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="55" selection-start-line="0" selection-start-column="55" selection-end-line="0" selection-end-column="55" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdatain_upd.sql">
@@ -1083,13 +969,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/AppMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmd_start_derbysyncclient.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1108,21 +987,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.0">
           <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#16342#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1480279290000" expanded="true" signature="8192:8250" placeholder="select missi..missingValue..." />
-            <marker date="1480279290000" expanded="true" signature="9489:9546" placeholder="update missi..." />
-            <marker date="1480279290000" expanded="true" signature="11447:11521" placeholder="insert into ..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1133,33 +997,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToUpdStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="5" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#7551#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/AppMessageImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17173524">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToSend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="50" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
-          <folding>
-            <element signature="e#0#12774#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1480285974000" expanded="true" signature="6677:6779" placeholder="select * fro..missingValue..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1174,49 +1015,43 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5082192">
           <caret line="106" column="76" selection-start-line="106" selection-start-column="76" selection-end-line="106" selection-end-column="76" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/AppMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1904762">
+          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.5952381">
           <caret line="27" column="54" selection-start-line="27" selection-start-column="54" selection-end-line="27" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#1445#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/MsgHeaderVal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#1068#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="131" column="16" selection-start-line="131" selection-start-column="16" selection-end-line="131" selection-end-column="16" />
+          <caret line="469" column="0" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="0" />
           <folding>
-            <marker date="1508777466060" expanded="true" signature="14466:14513" placeholder="delete from ..." />
-            <marker date="1508777466060" expanded="true" signature="15453:15491" placeholder="delete from ..." />
+            <marker date="1508794931045" expanded="true" signature="9304:9399" placeholder="select * fro..missingValue..." />
+            <marker date="1508794931045" expanded="true" signature="34864:34911" placeholder="delete from ..." />
+            <marker date="1508794931045" expanded="true" signature="35851:35889" placeholder="delete from ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1224,7 +1059,7 @@
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="175" column="35" selection-start-line="175" selection-start-column="21" selection-end-line="175" selection-end-column="35" />
+          <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1233,19 +1068,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4528302">
+          <caret line="63" column="5" selection-start-line="63" selection-start-column="5" selection-end-line="63" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33231708">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

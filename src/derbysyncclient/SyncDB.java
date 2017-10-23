@@ -3,6 +3,7 @@
  */
 package derbysyncclient;
 
+import javax.xml.soap.AttachmentPart;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,15 @@ import java.util.logging.Logger;
 public class SyncDB {
     
     private static final Logger logger = Logger.getLogger("derbysyncclient.SyncDB");
-    
+    private static final String ID= "ID";
+    private static final String CRDATE= "CRDATE";
+    private static final String TABLENAME= "TABLENAME";
+    private static final String OTYPE= "OTYPE";
+    private static final String TABLEKEY1IDNAME= "TABLEKEY1IDNAME";
+    private static final String TABLEKEY1IDVAL= "TABLEKEY1IDVAL";
+    private static final String TABLEKEY2IDNAME= "TABLEKEY2IDNAME";
+    private static final String TABLEKEY2IDVAL= "TABLEKEY2IDVAL";
+
     /* Создание объектов синхронизации в базе данных. Создаются таблицы синхронизации и триггеры синхронизации. */
     public static void createSyncObjects(Session poDBSession) throws Exception {
         
@@ -114,10 +123,10 @@ public class SyncDB {
     }
 
     /* Получение данных первой не отправленной записи из БД из таблицы с информацией о данных синхронизации. */
-    public static HashMap<String,Object> getOutputSyncData(Session dbs) throws Exception {
+    public static HashMap<String,String> getOutSyncData(Session dbs) throws Exception {
         logger.log(Level.INFO, "-----Getting sync information data from database-----");
         try {
-            HashMap<String,Object> result= new HashMap<>();
+            HashMap<String,String> result= new HashMap<>();
             //logger.log(Level.INFO, "Getting statement to database.");
             Statement voSt=dbs.getConnection().createStatement();
             String sQuery= TextFromResource.load("/sqlscripts/syncdataout_sel.sql");
@@ -125,14 +134,14 @@ public class SyncDB {
             ResultSet voRS= voSt.executeQuery(sQuery);
             if (voRS.next()) {
                 String sID=voRS.getString("ID");
-                result.put("ID",sID);
-                result.put("CRDATE",voRS.getString("CRDATE"));
-                result.put("TABLENAME",voRS.getString("TABLENAME"));
-                result.put("OTYPE",voRS.getString("OTYPE"));
-                result.put("TABLEKEY1IDNAME",voRS.getString("TABLEKEY1IDNAME"));
-                result.put("TABLEKEY1IDVAL",voRS.getString("TABLEKEY1IDVAL"));
-                result.put("TABLEKEY2IDNAME",voRS.getString("TABLEKEY2IDNAME"));
-                result.put("TABLEKEY2IDVAL", voRS.getString("TABLEKEY2IDVAL"));
+                result.put(ID,sID);
+                result.put(CRDATE,voRS.getString("CRDATE"));
+                result.put(TABLENAME,voRS.getString("TABLENAME"));
+                result.put(OTYPE,voRS.getString("OTYPE"));
+                result.put(TABLEKEY1IDNAME,voRS.getString("TABLEKEY1IDNAME"));
+                result.put(TABLEKEY1IDVAL,voRS.getString("TABLEKEY1IDVAL"));
+                result.put(TABLEKEY2IDNAME,voRS.getString("TABLEKEY2IDNAME"));
+                result.put(TABLEKEY2IDVAL, voRS.getString("TABLEKEY2IDVAL"));
                 logger.log(Level.INFO, "Recieved sync information data from database by ID: " + sID);
                 voSt.close();
                 return result;
@@ -145,8 +154,94 @@ public class SyncDB {
             throw new Exception("FAILED to get output sync data from database! "+e.getLocalizedMessage());
         }
     }
+    public static HashMap<String,String> getOutSyncDataValues(Session dbs, HashMap<String,String> outputSyncData) throws Exception {
+        String sQuery;
+        PreparedStatement voPSt;
+        ResultSet voRS2 = null;
+        try { //---выборка из БД данных синхронизации---
+            logger.log(Level.INFO, "-----Getting out sync data values from database-----");
+            //---получаем все колонки таблицы sTableName по ИД sIDName=sIDVal---
+            sQuery="select * from "+outputSyncData.get(TABLENAME)+" where "+outputSyncData.get(TABLEKEY1IDNAME)+"=?";
+            if (outputSyncData.get(TABLEKEY2IDNAME)!=null) {
+                sQuery= sQuery + " and "+outputSyncData.get(TABLEKEY2IDNAME)+"=?";
+            }
+            //logger.log(Level.INFO, "Preparing database statement.");
+            voPSt=dbs.getConnection().prepareStatement(sQuery);
+            logger.log(Level.INFO, "Preparing parameter 1 to database statement (" + outputSyncData.get(TABLEKEY1IDVAL) + ").");
+            voPSt.setString(1, outputSyncData.get(TABLEKEY1IDVAL)); //sKey1IDVal
+            if (outputSyncData.get(TABLEKEY2IDNAME)!=null) {
+                logger.log(Level.INFO, "Preparing parameter 2 to database statement (" + outputSyncData.get(TABLEKEY2IDVAL) + ").");
+                voPSt.setString(2, outputSyncData.get(TABLEKEY2IDVAL));//sKey2IDVal
+            }
+            //logger.log(Level.INFO, "Executing prepeared statement.");
+            voRS2= voPSt.executeQuery();
+        } catch (Exception e) {
+            throw new Exception("FAILED to read out sync data values from database! "+e.getMessage());
+        }
+        try {
+            HashMap<String,String> result= new HashMap<>();
+            voRS2.next();
+            //---поочередно все колонки (имя и значение) из запроса сохраняем---
+            for (int i=1;i<=voRS2.getMetaData().getColumnCount();i++) {
+                String sColName= voRS2.getMetaData().getColumnName(i); //column name
+                if (!"ATTRIBUTES".equals(sColName)){
+                    String sColVal= voRS2.getString(i); // column value
+                    if (sColVal==null) {sColVal="";}
+                    result.put(sColName, sColVal);
+                }
+            }
+            voPSt.close();
+            return result;
+        } catch (Exception e) {
+            throw new Exception("FAILED to get out sync data values! "+e.getMessage());
+        }
+    }
+    public static void updOutDataStateStoreOnServer(Session dbs, HashMap<String,String> serverResultItem) throws Exception{
+//        logger.log(Level.INFO, "-----------Handling response message-----------");
+//        if (response==null) { //если полученное сообщение = null
+//            throw new Exception("FAILED to handle response message! Response message is NULL!");
+//        }
+//        HashMap oDataFromResponse = null;
+//        try { //---чтение данных тела из сообщения-ответа---
+//            logger.log(Level.INFO, "-----Reading response message body-----");
+//
+//            String sHeaderVal = getMsgHeader(response); //заголовок сообщения-ответа
+//            oDataFromResponse = getMsgBody(response); //данные из тела из сообщения-ответа
+//            logger.log(Level.INFO,"RESPONSE FROM \""+sHeaderVal+"\" TO \""+oDataFromResponse.get(POS_CLIENT_SYNC_NAME)+"\""); // !!!IT'S FOR TESTING!!!
+//            logger.log(Level.INFO,"SyncData ID \""+oDataFromResponse.get(SYNC_DATA_ID) +"\""); // !!!IT'S FOR TESTING!!!
+//            logger.log(Level.INFO, "SyncData server ChID " + oDataFromResponse.get(SERVER_SYNC_DATA_ID)
+//                    + ", Status " + oDataFromResponse.get("Status")
+//                    + ", Msg \"" + oDataFromResponse.get("Msg")
+//                    + "\", AppliedDate " + oDataFromResponse.get("AppliedDate")); // !!!IT'S FOR TESTING!!!
+//            String sID= serverResultItem.get(ID);
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage());
+//        }
+        String sStatus = (String)serverResultItem.get("Status");
+        String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
+        try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
+            //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
+            PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
+            //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("STATUS")+", "+(String)oData.get("MSG")+").");
+            voPSt.setString(1,sStatus); //Status
+            voPSt.setString(2,(String)serverResultItem.get("Msg")); //Msg
+            voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
+            voPSt.setString(4,(String)serverResultItem.get(ID)); //ID
+            //logger.log(Level.INFO, "Executing prepeared statement.");
+            voPSt.executeUpdate();
+            voPSt.close();
+        } catch (Exception e) {
+            throw new Exception("FAILED to upd sync out data state store on server! Reason:"+e.getMessage());
+        }
+//        try {
+//            return Integer.parseInt(sStatus);
+//        } catch (Exception e){
+//            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
+//        }
+
+    }
     /* Получение данных первой не примененной записи из БД из таблицы с информацией о данных синхронизации. */
-    public static HashMap<String,Object> getNotAppliedOutputSyncData(Session dbs, HashMap<String,String> POSClientInformation) throws Exception {
+    public static HashMap<String,Object> getNotAppliedOutputSyncData(Session dbs) throws Exception {
         logger.log(Level.INFO, "-----Getting sync information data with status=0 from database-----");
         Statement voSt= null;
         try {
@@ -169,6 +264,236 @@ public class SyncDB {
             throw new Exception("FAILED to get not applied output sync data from database! "+e.getMessage());
         }
     }
+    public static void updOutDataStateApplyOnServer(Session dbs, HashMap<String,String> serverResultItem) throws Exception {
+//        logger.log(Level.INFO, "-----------Handling response message-----------");
+//        if (response==null) {
+//            throw new Exception("FAILED to handle response message! Response message is NULL!");
+//        }
+//        HashMap oDataFromResponse = null;
+//        try {
+//            logger.log(Level.INFO, "-----Reading response message body-----");
+//            String sHeaderVal = getMsgHeader(response); //заголовок сообщения-ответа
+//            oDataFromResponse = getMsgBody(response); //данные из тела из сообщения-ответа
+//            logger.log(Level.INFO,"RESPONSE FROM \""+sHeaderVal+"\" TO \""+oDataFromResponse.get(POS_CLIENT_SYNC_NAME)+"\""); // !!!IT'S FOR TESTING!!!
+//            logger.log(Level.INFO,"SyncDataID \""+oDataFromResponse.get(SYNC_DATA_ID) +"\""); // !!!IT'S FOR TESTING!!!
+//            logger.log(Level.INFO, "SyncData server ID " + oDataFromResponse.get(SERVER_SYNC_DATA_ID)
+//                    + ", Status " + oDataFromResponse.get("Status")
+//                    + ", Msg \"" + oDataFromResponse.get("Msg")
+//                    + "\", AppliedDate " + oDataFromResponse.get("AppliedDate")); // !!!IT'S FOR TESTING!!!
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage());
+//        }
+        String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataoutwithstatus_upd.sql"); //чтение sql-запроса из ресурса
+        //подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку
+        String sStatus = (String)serverResultItem.get("Status");
+        try {
+            //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
+            PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
+            //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("Status")+", "+(String)oData.get("Msg")+", "+(String)oData.get("AppliedDate")+").");
+            voPSt.setString(1,sStatus); //Status
+            voPSt.setString(2,(String)serverResultItem.get("Msg")); //Msg
+            voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
+            if ("".equals((String)serverResultItem.get("AppliedDate"))) { //APPLIEDDATE
+                voPSt.setNull(4, java.sql.Types.TIMESTAMP);
+            } else {
+                voPSt.setString(4,(String)serverResultItem.get("AppliedDate"));
+            }
+            voPSt.setString(5, (String) serverResultItem.get(ID)); //ID
+            //logger.log(Level.INFO, "Executing prepeared statement.");
+            voPSt.executeUpdate();
+            voPSt.close();
+        } catch (Exception e) {
+            throw new Exception("FAILED upd sync out data state apply on server! Reason:"+e.getMessage());
+        }
+//        try{
+//            return Integer.parseInt(sStatus);
+//        } catch (Exception e){
+//            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
+//        }
+    }
+
+//    /*Запись входящих данных синхронизации в таблицу входящих данных синхронизации.*/
+//    private void recSyncDataIn() throws Exception {
+//        String sID = null;
+//        logger.log(Level.INFO, "Selecting sync data from syncdatain table.");
+//        String sQuery_sel= TextFromResource.load("/sqlscripts/syncdatain_sel.sql");
+//        try {
+//            PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_sel);
+//            //logger.log(Level.INFO, "Executing syncClientName_sel.sql.");
+//            voPSt.setString(1, cvoDataFromResponse.get(SERVER_SYNC_DATA_ID));
+//            ResultSet voRS = voPSt.executeQuery();
+//            if (voRS.next()) { sID = voRS.getString("ID"); }
+//            voPSt.close();
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to get sync data from syncdatain table! "+e.getMessage());
+//        }
+//        if (sID!=null) {//удаление старой записи
+//            logger.log(Level.INFO, "Deleting sync data from syncdatain table.");
+//            String sQuery_ins= TextFromResource.load("/sqlscripts/syncdatain_del.sql");
+//            try {
+//                PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_ins);
+//                voPSt.setString(1,sID);
+//                voPSt.executeUpdate();
+//                voPSt.close();
+//            } catch (Exception e) {
+//                throw new Exception("FAILED to delete sync data from syncdatain table! "+e.getMessage());
+//            }
+//        }
+//        logger.log(Level.INFO, "Inserting sync data in into syncdatain table.");
+//        String sQuery_ins= TextFromResource.load("/sqlscripts/syncdatain_ins.sql");
+//        try {
+//            PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_ins);
+//            voPSt.setString(1, cvoDataFromResponse.get(SERVER_SYNC_DATA_ID));
+//            voPSt.setString(2, cvoDataFromResponse.get(TABLE_NAME));
+//            voPSt.setString(3, cvoDataFromResponse.get(TABLE_KEY1_NAME));
+//            voPSt.setString(4, cvoDataFromResponse.get(TABLE_KEY1_VALUE));
+//            voPSt.setString(5, cvoDataFromResponse.get(SERVER_CREATE_DATE));
+//            voPSt.executeUpdate();
+//            voPSt.close();
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to insert get sync data into syncdatain table! "+e.getMessage());
+//        }
+//    }
+//
+//    /*Применение входящих данных синхронизации.*/
+//    private void applySynDataIn(SOAPMessage response) throws Exception {
+//        boolean bExists = false;
+//        String sTable = cvoDataFromResponse.get(TABLE_NAME);
+//        String sKeyName = cvoDataFromResponse.get(TABLE_KEY1_NAME);
+//        String sKeyVal = cvoDataFromResponse.get(TABLE_KEY1_VALUE);
+//        try {
+//            String sQuery = "select "+sKeyName+" from "+sTable+" where "+sKeyName+" = ?";
+//            PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery);
+//            voPSt.setString(1,sKeyVal);
+//            ResultSet voRS = voPSt.executeQuery();
+//            if (voRS.next()) { bExists=true; }
+//            voPSt.close();
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to select sync data key! "+e.getMessage());
+//        }
+//        if (bExists) {//update data
+//            try {
+//                logger.log(Level.INFO,"Applying sync data (updating).");
+//                String sFieldsSet = null;
+//                @SuppressWarnings("rawtypes") java.util.Iterator it = response.getAttachments();
+//                while (it.hasNext()) {//подготовка списка полей
+//                    AttachmentPart attachment = (AttachmentPart)it.next();
+//                    String sDataName= attachment.getContentId();
+//                    //String sDataVal= ""+attachment.getContent();
+//                    //logger.log(Level.INFO,"Attachment: SyncDataName:" + sDataName + " SyncDataVal:" + sDataVal); // !!!IT'S FOR TESTING!!!
+//                    if (sFieldsSet==null) { sFieldsSet=sDataName+"=?"; } else { sFieldsSet=sFieldsSet+","+sDataName+"=?"; }
+//                }
+//                String sQuery = "update "+sTable+" set "+sFieldsSet+" where "+sKeyName+"=?";
+//                logger.log(Level.INFO,"Updating query: " + sQuery + "."); // !!!IT'S FOR TESTING!!!
+//                PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery);
+//                @SuppressWarnings("rawtypes") java.util.Iterator it2 = response.getAttachments();
+//                int i = 0;
+//                while (it2.hasNext()) {//подготовка параметров для полей
+//                    AttachmentPart attachment = (AttachmentPart)it2.next();
+//                    String sDataVal= ""+attachment.getContent();
+//                    i++;
+//                    //logger.log(Level.INFO,"Parameter:" + i + " value:" + sDataVal); // !!!IT'S FOR TESTING!!!
+//                    voPSt.setString(i,sDataVal);
+//                }
+//                voPSt.setString(i+1,sKeyVal);
+//                voPSt.executeUpdate();
+//                voPSt.close();
+//            } catch (Exception e) {
+//                throw new Exception("FAILED to apply sync data! "+e.getMessage());
+//            }
+//        } else {//insert data
+//            try {
+//                logger.log(Level.INFO,"Applying sync data (inserting).");
+//                String sFields = null;
+//                String sFieldsVal = null;
+//                @SuppressWarnings("rawtypes") java.util.Iterator it = response.getAttachments();
+//                while (it.hasNext()) {//подготовка списка полей
+//                    AttachmentPart attachment = (AttachmentPart)it.next();
+//                    String sDataName= attachment.getContentId();
+//                    //String sDataVal= ""+attachment.getContent();
+//                    //logger.log(Level.INFO,"Attachment: SyncDataName:" + sDataName + " SyncDataVal:" + sDataVal); // !!!IT'S FOR TESTING!!!
+//                    if (sFields==null) { sFields=sDataName; sFieldsVal="?"; } else { sFields=sFields+","+sDataName; sFieldsVal=sFieldsVal+",?"; }
+//                }
+//                String sQuery = "insert into "+sTable+" ("+sKeyName+","+sFields+") values(?,"+sFieldsVal+")";
+//                logger.log(Level.INFO,"Inserting query: " + sQuery + "."); // !!!IT'S FOR TESTING!!!
+//                PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery);
+//                voPSt.setString(1,sKeyVal);
+//                @SuppressWarnings("rawtypes") java.util.Iterator it2 = response.getAttachments();
+//                int i = 0;
+//                while (it2.hasNext()) {//подготовка параметров для полей
+//                    AttachmentPart attachment = (AttachmentPart)it2.next();
+//                    String sDataVal= ""+attachment.getContent().toString();
+//                    i++;
+//                    //logger.log(Level.INFO,"Parameter:" + (i+1) + " value:" + sDataVal); // !!!IT'S FOR TESTING!!!
+//                    voPSt.setString(1+i,sDataVal);
+//                }
+//                voPSt.executeUpdate();
+//                voPSt.close();
+//            } catch (Exception e) {
+//                throw new Exception("FAILED to apply sync data! "+e.getMessage());
+//            }
+//        }
+//    }
+//
+//    /*Обновление статуса и данных в таблице входящих данных синхронизации по результату применения данных.*/
+//    private void updStatus() throws Exception {
+//        logger.log(Level.INFO, "Updating sync data status in syncdatain table.");
+//        String sQuery_ins= TextFromResource.load("/sqlscripts/syncdatain_upd.sql");
+//        try {
+//            PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_ins);
+//            //logger.log(Level.INFO, "Executing syncClientName_sel.sql.");
+//            voPSt.setString(1, "1");//Status
+//            voPSt.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
+//            voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//APPLIEDDATE
+//            voPSt.setString(4, cvoDataFromResponse.get(SERVER_SYNC_DATA_ID));
+//            voPSt.setString(5, cvoDataFromResponse.get(TABLE_NAME));
+//            voPSt.setString(6, cvoDataFromResponse.get(TABLE_KEY1_NAME));
+//            voPSt.setString(7, cvoDataFromResponse.get(TABLE_KEY1_VALUE));
+//            voPSt.executeUpdate();
+//            voPSt.close();
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to update sync data status in syncdatain table! "+e.getMessage());
+//        }
+//    }
+//    /*Формирование сообщения-запроса на сервер с данными о результате приема и применения данных с сервера.*/
+//    public SOAPMessage getRequestWithResult() throws Exception {
+//        logger.log(Level.INFO, "----------Prepare request message with result recieved and applied data from server----------");
+//        logger.log(Level.INFO, "Selecting sync data from syncdatain table.");
+//        String sQuery_sel= TextFromResource.load("/sqlscripts/syncdatain_sel.sql");
+//        try {
+//            PreparedStatement voPSt=cvoDBSession.getConnection().prepareStatement(sQuery_sel);
+//            //logger.log(Level.INFO, "Executing syncClientName_sel.sql.");
+//            voPSt.setString(1, cvoDataFromResponse.get(SERVER_SYNC_DATA_ID));
+//            ResultSet voRS = voPSt.executeQuery();
+//            if (voRS.next()) {
+//                cvoDataForRequest.put(SYNC_DATA_ID,voRS.getString("ID"));
+//                cvoDataForRequest.put("Status",voRS.getString("Status"));
+//                cvoDataForRequest.put("AppliedDate",voRS.getString("APPLIEDDATE"));
+//                cvoDataForRequest.put("Msg",voRS.getString("Msg"));
+//            } else {
+//                throw new Exception("FAILED to get sync data from syncdatain table! No data!");
+//            }
+//            voPSt.close();
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to get sync data from syncdatain table! "+e.getMessage());
+//        }
+//        //---создание сообщения, заполнение заголовка и тела сообщения данными с информацией об отправляемых данных---
+//        logger.log(Level.INFO, "-----Creating SOAP request message-----");
+//        SOAPMessage request = null;
+//        try{
+//            request = crMsg( //создание SOAP сообщения-запроса с данными заголовка и тела
+//                    MsgHeaderVal.REQUEST_FROM_CLIENT_TO_UPD_SATATUS_SERVER_DATA_MSG_NAME, //заголовок сообщения
+//                    cvoDataForRequest.get(POS_CLIENT_SYNC_NAME), //тело сообщения
+//                    new String[] {SERVER_SYNC_DATA_ID,cvoDataFromResponse.get(SERVER_SYNC_DATA_ID)},
+//                    new String[] {"Status",cvoDataForRequest.get("Status")},
+//                    new String[] {"AppliedDate",cvoDataForRequest.get("AppliedDate")},
+//                    new String[] {SYNC_DATA_ID,cvoDataForRequest.get(SYNC_DATA_ID)},
+//                    new String[] {"Msg",cvoDataForRequest.get("Msg")} );
+//        } catch (Exception e) {
+//            throw new Exception("FAILED to create SOAP request message! "+e.getMessage());
+//        }
+//        return request;
+//    }
 
     /* удаление примененных данных из БД. Удаляются данные и записи журнала исходящих данных синхронизации. */
     public static void delApplSyncData(Session poDBSession, int piTermStorageDay) throws Exception {
