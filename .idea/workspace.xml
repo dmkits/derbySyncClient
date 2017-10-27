@@ -7,14 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="process v_1.7 by JSON requests for node syncService">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logconsole.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logdebug.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logging.properties" afterPath="$PROJECT_DIR$/logging.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -806,7 +798,7 @@
       <workItem from="1509090532315" duration="403000" />
       <workItem from="1509090996268" duration="1643000" />
       <workItem from="1509092656710" duration="528000" />
-      <workItem from="1509093689090" duration="12000000" />
+      <workItem from="1509093689090" duration="12224000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -862,11 +854,17 @@
       <option name="project" value="LOCAL" />
       <updated>1509127177722</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="process v_1.7 by JSON requests for node syncService">
+      <created>1509136109233</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1509136109233</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139396000" />
+    <option name="totallyTimeSpent" value="139620000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
