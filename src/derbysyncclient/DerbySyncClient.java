@@ -171,8 +171,9 @@ public class DerbySyncClient {
                     bNoDataForSend=false;
                     HashMap<String,String> outputSyncDataValues=
                             SyncDB.getOutSyncDataValues(cvoDBSession, outputSyncData);
-                    requestToSyncService.storeSyncOutData(cvsPOSClientInformation, outputSyncData, outputSyncDataValues);
-
+                    HashMap<String,Object> serverOutSyncDataStoreResult=
+                        requestToSyncService.storeSyncOutData(cvsPOSClientInformation, outputSyncData, outputSyncDataValues);
+                    SyncDB.updOutDataStateStoreOnServer(cvoDBSession,outputSyncData.get("ID"), serverOutSyncDataStoreResult);
                     iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else {
                     bNoDataForSend=true; //нет данных для отправки
@@ -181,9 +182,9 @@ public class DerbySyncClient {
                 logger.log(Level.SEVERE, "FAILED store sync out data to server! Reason: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
-                continue; 
-            }
-            logger.log(Level.INFO, "REQUEST TO APPLY SYNC OUT DATA...");
+                    continue;
+                }
+                logger.log(Level.INFO, "REQUEST TO APPLY SYNC OUT DATA...");
             try {
                 if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
                 HashMap<String,Object> notAppliedOutputSyncData= null;

@@ -196,7 +196,7 @@ public class SyncDB {
             throw new Exception("FAILED to get out sync data values! "+e.getMessage());
         }
     }
-    public static void updOutDataStateStoreOnServer(Session dbs, HashMap<String,String> serverResultItem) throws Exception{
+    public static void updOutDataStateStoreOnServer(Session dbs, String sID, HashMap<String,Object> serverResult) throws Exception{
 //        logger.log(Level.INFO, "-----------Handling response message-----------");
 //        if (response==null) { //если полученное сообщение = null
 //            throw new Exception("FAILED to handle response message! Response message is NULL!");
@@ -217,16 +217,26 @@ public class SyncDB {
 //        } catch (Exception e) {
 //            throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage());
 //        }
-        String sStatus = (String)serverResultItem.get("Status");
+        String sStatus = null, sMsg= null;
+        if(serverResult==null){
+        } else if(serverResult.get("error")!=null){
+            sMsg = "Server Sync Service Failed to store! Reason:"+serverResult.get("error").toString();
+        } else if(serverResult.get("resultItem")==null){
+            sMsg = "Server Sync Service Failed to store! Reason: no result item!";
+        } else {
+            HashMap<String,Object> serverResultItem= (HashMap)serverResult.get("resultItem");
+            sStatus = serverResultItem.get("STATE").toString();
+            sMsg = (String)serverResultItem.get("MSG");
+        }
         String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
         try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
             //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
             PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
             //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("STATUS")+", "+(String)oData.get("MSG")+").");
             voPSt.setString(1,sStatus); //Status
-            voPSt.setString(2,(String)serverResultItem.get("Msg")); //Msg
+            voPSt.setString(2,sMsg); //Msg
             voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
-            voPSt.setString(4,(String)serverResultItem.get(ID)); //ID
+            voPSt.setString(4,sID); //ID
             //logger.log(Level.INFO, "Executing prepeared statement.");
             voPSt.executeUpdate();
             voPSt.close();
@@ -238,7 +248,6 @@ public class SyncDB {
 //        } catch (Exception e){
 //            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
 //        }
-
     }
     /* Получение данных первой не примененной записи из БД из таблицы с информацией о данных синхронизации. */
     public static HashMap<String,Object> getNotAppliedOutputSyncData(Session dbs) throws Exception {
