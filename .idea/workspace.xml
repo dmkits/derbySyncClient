@@ -7,226 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="process v_1.7 by JSON requests for node syncService">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c10.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c101.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1010.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1021.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1030.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1040.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1050.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1070.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1081.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1090.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c10a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c10b0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c10c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c10d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c111.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c121.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c130.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c141.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c150.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c161.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c171.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c180.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c191.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1b1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1c0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1e0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c1f1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c20.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c200.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c211.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c221.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c230.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c241.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c251.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c260.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c271.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c281.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c290.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2b1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2d0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2e1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c2f0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c300.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c31.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c311.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c321.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c331.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c340.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c351.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c361.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c371.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c380.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c391.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3b1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3c0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3e1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c3f1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c400.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c41.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c411.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c420.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c431.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c441.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c450.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c461.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c471.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c481.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c491.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4a0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4b1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4d0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4e1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c4f1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c500.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c51.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c511.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c521.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c531.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c541.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c551.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c561.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c570.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c581.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c591.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5b0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5e0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c5f1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c60.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c601.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c611.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c621.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c631.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c640.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c651.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c660.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c671.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c681.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c690.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6b0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6e1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c6f1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c700.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c71.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c711.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c721.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c730.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c741.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c751.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c761.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c770.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c781.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c791.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7a1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7b1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7c1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7d1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7e1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c7f0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c801.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c81.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c811.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c820.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c831.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c841.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c851.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c861.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c870.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c881.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c891.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/c90.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ca1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cb1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cb70.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cb81.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cb91.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cba0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cbb1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cbc1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cbd1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cbe0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cbf1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc01.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc10.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc21.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc31.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc40.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc51.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc61.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc71.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc80.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cc91.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cca0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ccb1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ccc1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ccd1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cce1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ccf1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd00.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd11.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd21.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd31.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd40.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd51.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd61.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd71.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd81.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cd90.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cda1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cdb1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cdc1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cdd0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cde1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cdf1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce01.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce10.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce21.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce31.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce41.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce50.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce61.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce71.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce81.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ce91.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cea0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ceb1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cec1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/ced1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cee1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cef1.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cf0.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cf00.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cf11.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cf21.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/seg0/cf31.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/db.lck" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/dbex.lck" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/log/log.ctrl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/log/log3133.dat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/log/logmirror.ctrl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/derby.log" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/derby.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/bata1_pos1/service.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/startDerby10Server.sh" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/stopDerby10Server.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logconsole.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logdebug.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logging.properties" afterPath="$PROJECT_DIR$/logging.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="derbySyncClient.iws" />
@@ -261,7 +51,57 @@
     <favorites_list name="derbySyncClient" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="DerbySyncClient.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="176" column="39" selection-start-line="176" selection-start-column="39" selection-end-line="176" selection-end-column="39" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RequestToSyncService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SyncDB.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4276423">
+              <caret line="235" column="67" selection-start-line="235" selection-start-column="67" selection-end-line="235" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1509135899142" expanded="true" signature="10635:10730" placeholder="select * fro..missingValue..." />
+                <marker date="1509135899142" expanded="true" signature="33380:33427" placeholder="delete from ..." />
+                <marker date="1509135899142" expanded="true" signature="34367:34405" placeholder="delete from ..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.133333">
+              <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -276,6 +116,7 @@
         <option value="dmkits &lt;dmk.dp.ua@gmail.com&gt;" />
       </list>
     </option>
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -315,7 +156,6 @@
         <option value="$PROJECT_DIR$/test/sqlscripts/update_obpos_db_for_v_1.6.sql" />
         <option value="$PROJECT_DIR$/release_notes.txt" />
         <option value="$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncData.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/GetSyncDataFromServer.java" />
         <option value="$PROJECT_DIR$/bash_start_derbysyncclient.txt" />
@@ -323,11 +163,15 @@
         <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDataFromServer.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientInstanceInfo.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientSyncDataToGet.java" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
+        <option value="$PROJECT_DIR$/logging.properties" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" />
+        <option value="$PROJECT_DIR$/logconsole.properties" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
       </list>
     </option>
   </component>
@@ -368,8 +212,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -416,6 +258,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="derbySyncClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="derbySyncClient.iprj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="derbysyncclient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="derbySyncClient" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="derbySyncClient.iprj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -436,6 +310,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -470,12 +346,124 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/db" />
       <recent name="$PROJECT_DIR$/src/sqlscripts" />
       <recent name="$PROJECT_DIR$/lib" />
-      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/test/sqlscripts" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/derbysyncclient/SyncDB.java</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunManager" selected="Application.debug">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -716,6 +704,9 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="Unknown" factoryName="Unknown">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -734,7 +725,7 @@
     <configuration default="false" name="debug" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="derbysyncclient.DerbySyncClient" />
-      <option name="VM_PARAMETERS" value="" />
+      <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=./logconsole.properties" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -746,8 +737,24 @@
       <envs />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="debug-full" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="derbysyncclient.DerbySyncClient" />
+      <option name="VM_PARAMETERS" value="-Djava.util.logging.config.file=./logdebug.properties" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="derbySyncClient" />
+      <envs />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Application.debug" />
+      <item index="1" class="java.lang.String" itemvalue="Application.debug-full" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -799,6 +806,7 @@
       <workItem from="1509090532315" duration="403000" />
       <workItem from="1509090996268" duration="1643000" />
       <workItem from="1509092656710" duration="528000" />
+      <workItem from="1509093689090" duration="12000000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -848,11 +856,17 @@
       <option name="project" value="LOCAL" />
       <updated>1508796601567</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="process v_1.7 by JSON requests for node syncService">
+      <created>1509127177722</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1509127177722</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127396000" />
+    <option name="totallyTimeSpent" value="139396000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -865,33 +879,33 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="46" y="23" width="1876" height="1183" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286119" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="GitLabIntegration" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32987747" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32766762" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32766762" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32766762" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4532578" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25519127" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17213115" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14754099" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.394712" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39553428" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32766762" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4533459" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295129" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -919,7 +933,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="42" />
+      <option name="time" value="43" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -928,70 +942,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/Session.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="469" column="0" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncClientName_sel.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdatain_del.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdatain_ins.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlscripts/syncdatain_sel.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1173,13 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logging.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/startXTerm.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -1191,7 +1134,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1251,13 +1193,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/start_dsc.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1290,6 +1225,103 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1450151">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start_dsc.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13559322">
+          <caret line="5" column="64" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logging.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="63" selection-start-line="4" selection-start-column="63" selection-end-line="4" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logdebug.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logconsole.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="26" selection-start-line="2" selection-start-column="26" selection-end-line="2" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/default-java/jre/lib/rt.jar!/java/util/logging/Logger.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34745762">
+          <caret line="218" column="16" selection-start-line="218" selection-start-column="16" selection-end-line="218" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5609756">
+          <caret line="73" column="24" selection-start-line="73" selection-start-column="18" selection-end-line="73" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2601626">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="176" column="39" selection-start-line="176" selection-start-column="39" selection-end-line="176" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.133333">
+          <caret line="19" column="72" selection-start-line="19" selection-start-column="72" selection-end-line="19" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4276423">
+          <caret line="235" column="67" selection-start-line="235" selection-start-column="67" selection-end-line="235" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1509135899142" expanded="true" signature="10635:10730" placeholder="select * fro..missingValue..." />
+            <marker date="1509135899142" expanded="true" signature="33380:33427" placeholder="delete from ..." />
+            <marker date="1509135899142" expanded="true" signature="34367:34405" placeholder="delete from ..." />
+          </folding>
         </state>
       </provider>
     </entry>

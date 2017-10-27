@@ -3,7 +3,6 @@ package derbysyncclient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.http.Header;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -13,12 +12,15 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by dmkits on 23.10.17.
  */
 public class JSONRequest {
 
+    private static final Logger logger = Logger.getLogger("derbysyncclient.JSONRequest");
     CloseableHttpClient httpClient=null;
     String url;
     HttpPost request= null;
@@ -51,6 +53,7 @@ public class JSONRequest {
             String sRespData=null;
             if(hasJSONHeader) sRespData= EntityUtils.toString(response.getEntity(), "UTF-8");
             response.close();
+            logger.log(Level.FINE, "Getted response from server /SyncService: \n body={0}", sRespData);
             if(!hasJSONHeader)
                 throw new Exception("Failed JSON request! Reason: response no JSON content!");
             Result respData = gson.fromJson(sRespData, Result.class);

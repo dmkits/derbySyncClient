@@ -21,7 +21,7 @@ public class TextFromResource {
     }
     
     public static String load(String sResName) throws Exception {
-        logger.log(Level.INFO, "Reading text data from resource \""+sResName+"\".");
+        logger.log(Level.FINE, "Reading text data from resource \""+sResName+"\".");
         StringBuilder sb = new StringBuilder();
         try {
             InputStream is = DerbySyncClient.class.getResourceAsStream(sResName);
