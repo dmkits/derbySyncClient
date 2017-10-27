@@ -3,11 +3,10 @@
  */
 package derbysyncclient;
 
-import javax.xml.soap.AttachmentPart;
-import java.sql.Blob;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.sql.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -32,6 +31,31 @@ public class SyncDB {
     private static final String TABLEKEY1IDVAL= "TABLEKEY1IDVAL";
     private static final String TABLEKEY2IDNAME= "TABLEKEY2IDNAME";
     private static final String TABLEKEY2IDVAL= "TABLEKEY2IDVAL";
+
+    /* Регистрация драйвера базы данных. */
+    public static void regDBDriver(String sDBDriverLib, String sDBDriver) throws Exception {
+        logger.log(Level.INFO, "Registering database driver.");
+        try {
+            ClassLoader cloader =
+                    new URLClassLoader(new URL[] {new File(sDBDriverLib).toURI().toURL()});
+            DriverManager.registerDriver(
+                    (Driver) Class.forName(sDBDriver, true, cloader).newInstance());
+        } catch (Exception e) {
+            throw new Exception("FAILED to register database driver! "+e.getMessage());
+        }
+    }
+    /* Подключение к базе данных. */
+    public static Session connectToDB(String sDBUrl, String sDBUser, String sDBPassword) throws Exception {
+        logger.log(Level.INFO, "Connecting to database: \""+sDBUrl+"\"");
+        try {
+            Session dbSession = new Session(); //
+            dbSession.setConnectParams(sDBUrl, sDBUser, sDBPassword);
+            dbSession.connect();
+            return dbSession;
+        } catch (Exception e) {
+            throw new Exception("FAILED to connect to database: \""+sDBUrl+"\"! "+e.getMessage());
+        }
+    }
 
     /* Создание объектов синхронизации в базе данных. Создаются таблицы синхронизации и триггеры синхронизации. */
     public static void createSyncObjects(Session poDBSession) throws Exception {
@@ -123,14 +147,12 @@ public class SyncDB {
     }
 
     /* Получение данных первой не отправленной записи из БД из таблицы с информацией о данных синхронизации. */
-    public static HashMap<String,String> getOutSyncData(Session dbs) throws Exception {
+    public static HashMap<String,String> getSyncDataOutItem(Session dbs) throws Exception {
         logger.log(Level.INFO, "-----Getting sync information data from database-----");
         try {
             HashMap<String,String> result= new HashMap<>();
-            //logger.log(Level.INFO, "Getting statement to database.");
             Statement voSt=dbs.getConnection().createStatement();
             String sQuery= TextFromResource.load("/sqlscripts/syncdataout_sel.sql");
-            //logger.log(Level.INFO, "Executing syncdataout_sel.sql.");
             ResultSet voRS= voSt.executeQuery(sQuery);
             if (voRS.next()) {
                 String sID=voRS.getString("ID");
@@ -162,10 +184,8 @@ public class SyncDB {
             logger.log(Level.INFO, "-----Getting out sync data values from database-----");
             //---получаем все колонки таблицы sTableName по ИД sIDName=sIDVal---
             sQuery="select * from "+outputSyncData.get(TABLENAME)+" where "+outputSyncData.get(TABLEKEY1IDNAME)+"=?";
-            if (outputSyncData.get(TABLEKEY2IDNAME)!=null) {
+            if (outputSyncData.get(TABLEKEY2IDNAME)!=null)
                 sQuery= sQuery + " and "+outputSyncData.get(TABLEKEY2IDNAME)+"=?";
-            }
-            //logger.log(Level.INFO, "Preparing database statement.");
             voPSt=dbs.getConnection().prepareStatement(sQuery);
             logger.log(Level.INFO, "Preparing parameter 1 to database statement (" + outputSyncData.get(TABLEKEY1IDVAL) + ").");
             voPSt.setString(1, outputSyncData.get(TABLEKEY1IDVAL)); //sKey1IDVal
@@ -173,7 +193,6 @@ public class SyncDB {
                 logger.log(Level.INFO, "Preparing parameter 2 to database statement (" + outputSyncData.get(TABLEKEY2IDVAL) + ").");
                 voPSt.setString(2, outputSyncData.get(TABLEKEY2IDVAL));//sKey2IDVal
             }
-            //logger.log(Level.INFO, "Executing prepeared statement.");
             voRS2= voPSt.executeQuery();
         } catch (Exception e) {
             throw new Exception("FAILED to read out sync data values from database! "+e.getMessage());
@@ -197,26 +216,6 @@ public class SyncDB {
         }
     }
     public static void updOutDataStateStoreOnServer(Session dbs, String sID, HashMap<String,Object> serverResult) throws Exception{
-//        logger.log(Level.INFO, "-----------Handling response message-----------");
-//        if (response==null) { //если полученное сообщение = null
-//            throw new Exception("FAILED to handle response message! Response message is NULL!");
-//        }
-//        HashMap oDataFromResponse = null;
-//        try { //---чтение данных тела из сообщения-ответа---
-//            logger.log(Level.INFO, "-----Reading response message body-----");
-//
-//            String sHeaderVal = getMsgHeader(response); //заголовок сообщения-ответа
-//            oDataFromResponse = getMsgBody(response); //данные из тела из сообщения-ответа
-//            logger.log(Level.INFO,"RESPONSE FROM \""+sHeaderVal+"\" TO \""+oDataFromResponse.get(POS_CLIENT_SYNC_NAME)+"\""); // !!!IT'S FOR TESTING!!!
-//            logger.log(Level.INFO,"SyncData ID \""+oDataFromResponse.get(SYNC_DATA_ID) +"\""); // !!!IT'S FOR TESTING!!!
-//            logger.log(Level.INFO, "SyncData server ChID " + oDataFromResponse.get(SERVER_SYNC_DATA_ID)
-//                    + ", Status " + oDataFromResponse.get("Status")
-//                    + ", Msg \"" + oDataFromResponse.get("Msg")
-//                    + "\", AppliedDate " + oDataFromResponse.get("AppliedDate")); // !!!IT'S FOR TESTING!!!
-//            String sID= serverResultItem.get(ID);
-//        } catch (Exception e) {
-//            throw new Exception("FAILED to read response message body! Wrong message structure! "+e.getMessage());
-//        }
         String sStatus = null, sMsg= null;
         if(serverResult==null){
         } else if(serverResult.get("error")!=null){
@@ -226,28 +225,20 @@ public class SyncDB {
         } else {
             HashMap<String,Object> serverResultItem= (HashMap)serverResult.get("resultItem");
             sStatus = serverResultItem.get("STATE").toString();
-            sMsg = (String)serverResultItem.get("MSG");
+            sMsg = serverResultItem.get("MSG").toString();
         }
         String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
         try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
-            //logger.log(Level.INFO, "Preparing database statement from resource syncdataout_upd.sql.");
             PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
-            //logger.log(Level.INFO, "Preparing parameters to database statement ("+(String)oData.get("STATUS")+", "+(String)oData.get("MSG")+").");
             voPSt.setString(1,sStatus); //Status
             voPSt.setString(2,sMsg); //Msg
             voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
             voPSt.setString(4,sID); //ID
-            //logger.log(Level.INFO, "Executing prepeared statement.");
             voPSt.executeUpdate();
             voPSt.close();
         } catch (Exception e) {
             throw new Exception("FAILED to upd sync out data state store on server! Reason:"+e.getMessage());
         }
-//        try {
-//            return Integer.parseInt(sStatus);
-//        } catch (Exception e){
-//            throw new Exception("FAILED to finish handle response message! Response: state in not correct!");
-//        }
     }
     /* Получение данных первой не примененной записи из БД из таблицы с информацией о данных синхронизации. */
     public static HashMap<String,Object> getNotAppliedOutputSyncData(Session dbs) throws Exception {

@@ -3,18 +3,12 @@
  */
 package derbysyncclient;
 
-import java.io.File;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.soap.*;
 
 /** DerbySyncClient
  * Клиент Web-сервиса синхронизации данных с базой MSSQL.
@@ -39,9 +33,6 @@ public class DerbySyncClient {
     private static String cvsServiceURL = null;
     private static HashMap<String,String> cvsPOSClientInformation = null;
 
-    private static URL cvoURLEndpoint = null;
-    private static SOAPConnection cvoSOAPConnection = null;
-    
     private static int cviCountID=0; // количество отправок сообщений за 1 сеанс связи
     private static int cviTermStorageDay=0; // срок хранения данных свыше которого данные удаляются
 
@@ -57,32 +48,25 @@ public class DerbySyncClient {
         logger.log(Level.INFO, "");
         logger.log(Level.INFO, "");
         logger.log(Level.INFO, "STARTING DerbySyncClient...");
-
-        // проверка на наличие уже запущенного экземпляра приложения
-        if (isAppRegister()) {
-            logger.log(Level.WARNING, "FAILED launch a second instance of " + ClientInstanceInfo.CLIENT_NAME + "!");
+        if (isAppRegister()) {// проверка на наличие уже запущенного экземпляра приложения
+            logger.log(Level.SEVERE, "FAILED launch a second instance of " + ClientInstanceInfo.CLIENT_NAME + "!");
             return;
         }
-        // регистрация запущенного приложения
-        instanceRegistering();
-
+        instanceRegistering();// регистрация запущенного приложения
         try {
             if (init(args)) return;//if did update
         } catch (Exception e) {
-            logger.log(Level.WARNING, "FAILED init " + ClientInstanceInfo.CLIENT_NAME + "! Reason:"+e.getLocalizedMessage());
+            logger.log(Level.SEVERE, "FAILED init " + ClientInstanceInfo.CLIENT_NAME + "! Reason:"+e.getLocalizedMessage());
+            instanceUnregistering();
             return;
         }
-
-        // формирование, отправка сообщений и прием и обработка ответов.
         try {
-            run(args);
+            run(args);// формирование, отправка сообщений и прием и обработка ответов.
         } catch (Exception e) {
-            logger.log(Level.WARNING, "----------!!!!!!!!!!DerbySyncClient aborted!!!!!!!!!!----------");
-            logger.log(Level.WARNING, "CAUSE: {0}", e.getMessage());
+            logger.log(Level.SEVERE, "----------!!!!!!!!!!DerbySyncClient aborted!!!!!!!!!!----------");
+            logger.log(Level.SEVERE, "CAUSE: {0}", e.getMessage());
         }
-
-        // удаление регистрации приложения
-        instanceUnregistering();
+        instanceUnregistering();// удаление регистрации приложения
         logger.log(Level.INFO, "FINISHED DerbySyncClient.");
     }
     
@@ -90,9 +74,9 @@ public class DerbySyncClient {
         // чтение локальных параметров из файла настроек .properties
         loadLocalConfig();
         //----------регистрация драйвера базы данных, из которой извлекаются данные для отправки----------
-        regDBDriver();
+        SyncDB.regDBDriver(cvoClientLocalConfig.getProperty("db.driverlib"), cvoClientLocalConfig.getProperty("db.driver"));
         //----------подключение к базе данных, из которой извлекаются данные для отправки----------
-        connectToDB();
+        cvoDBSession= SyncDB.connectToDB(cvsDBUrl, cvsDBUser,cvsDBPassword);
         cvsPOSClientInformation= SyncDB.getPOSClientInformation(cvoDBSession);
         if (args.length==0) return false;
         String sArg1= args[0];
@@ -166,7 +150,7 @@ public class DerbySyncClient {
             logger.log(Level.INFO, "REQUEST TO STORE SYNC OUT DATA...");
             try {
                 HashMap<String,String> outputSyncData= null;
-                if ((outputSyncData=SyncDB.getOutSyncData(cvoDBSession))!=null) {
+                if ((outputSyncData=SyncDB.getSyncDataOutItem(cvoDBSession))!=null) {
                     //если есть данные для отправки на сервер
                     bNoDataForSend=false;
                     HashMap<String,String> outputSyncDataValues=
@@ -220,7 +204,6 @@ public class DerbySyncClient {
         }
         return false;
     }
-    
     /* Регистрация экземпляра приложения. */
     private static void instanceRegistering() {
         try {
@@ -229,20 +212,18 @@ public class DerbySyncClient {
             AppMessage m_stub = (AppMessage) UnicastRemoteObject.exportObject(m_message, 0);
             m_registry.bind("AppMessage", m_stub); 
         } catch (Exception e) {
-            logger.log(Level.WARNING, "FAILED to registry instatnce.",e);
+            logger.log(Level.SEVERE, "FAILED to registry instatnce.",e);
         }
     }
-    
     /* Удаление объектов регистрации приложения из реестра. */
     private static void instanceUnregistering() {
         try {
-            m_registry.unbind("AppMessage"); 
+            m_registry.unbind("AppMessage");
             UnicastRemoteObject.unexportObject(m_message, true);
         } catch (Exception e) {
-            logger.log(Level.WARNING, "FAILED to unregister application",e);
+            logger.log(Level.SEVERE, "FAILED to unregister application",e);
         }
     }
-    
     /* Чтение локальных настроек из файла .properties локальных настроек приложения. */
     private static void loadLocalConfig() throws Exception {
         try {//чтение настроек из файла
@@ -272,36 +253,10 @@ public class DerbySyncClient {
         } catch (Exception e) {
             throw new Exception("FAILED to set default local config parameters! "+e.getMessage());
         }
-        // запись локальных настроек в файл .properties
         try {
-            cvoClientLocalConfig.save();
+            cvoClientLocalConfig.save();// запись локальных настроек в файл .properties
         } catch (Exception e){
             logger.log(Level.INFO, "FAILED to save local parameters!",e);
-        }
-    }
-    
-    /* Регистрация драйвера базы данных. */
-    private static void regDBDriver() throws Exception {
-        logger.log(Level.INFO, "Registering database driver.");
-        try {
-            ClassLoader cloader =
-                    new URLClassLoader(new URL[] {new File(cvoClientLocalConfig.getProperty("db.driverlib")).toURI().toURL()});
-            DriverManager.registerDriver(
-                    (Driver) Class.forName(cvoClientLocalConfig.getProperty("db.driver"), true, cloader).newInstance());
-        } catch (Exception e) {
-            throw new Exception("FAILED to register database driver! "+e.getMessage());
-        }
-    }
-    
-    /* Подключение к базе данных. */
-    private static void connectToDB() throws Exception {
-        logger.log(Level.INFO, "Connecting to database: \""+cvsDBUrl+"\"");
-        try {
-            cvoDBSession = new Session(); //
-            cvoDBSession.setConnectParams(cvsDBUrl, cvsDBUser,cvsDBPassword);
-            cvoDBSession.connect();
-        } catch (Exception e) {
-            throw new Exception("FAILED to connect to database: \""+cvsDBUrl+"\"! "+e.getMessage());
         }
     }
 }
