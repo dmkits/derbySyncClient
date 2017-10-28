@@ -6,15 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="process v_1.7 by JSON requests for node syncService">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
+    <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="derbySyncClient.iws" />
@@ -66,7 +60,7 @@
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="53" selection-start-line="76" selection-start-column="53" selection-end-line="76" selection-end-column="53" />
+              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -74,17 +68,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SyncDB.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SyncDB.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55711776">
-              <caret line="278" column="5" selection-start-line="278" selection-start-column="5" selection-end-line="278" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="270" column="5" selection-start-line="270" selection-start-column="5" selection-end-line="270" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1509186397441" expanded="true" signature="10702:10797" placeholder="select * fro..missingValue..." />
-                <marker date="1509186397441" expanded="true" signature="33614:33661" placeholder="delete from ..." />
-                <marker date="1509186397441" expanded="true" signature="34601:34639" placeholder="delete from ..." />
+                <marker date="1509201377614" expanded="true" signature="10301:10396" placeholder="select * fro..missingValue..." />
+                <marker date="1509201377614" expanded="true" signature="33213:33260" placeholder="delete from ..." />
+                <marker date="1509201377614" expanded="true" signature="34200:34238" placeholder="delete from ..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JSONRequest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3813708">
+              <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,12 +168,12 @@
         <option value="$PROJECT_DIR$/logging.properties" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java" />
         <option value="$PROJECT_DIR$/logconsole.properties" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/04b51ae8-81bd-46e9-b3f4-45439c07e5be/console.sql" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
       </list>
     </option>
   </component>
@@ -694,7 +698,7 @@
       <workItem from="1509090996268" duration="1643000" />
       <workItem from="1509092656710" duration="528000" />
       <workItem from="1509093689090" duration="12277000" />
-      <workItem from="1509184668023" duration="9488000" />
+      <workItem from="1509184668023" duration="11776000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -762,11 +766,17 @@
       <option name="project" value="LOCAL" />
       <updated>1509136128818</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="process v_1.7 by JSON requests for node syncService">
+      <created>1509201377841</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1509201377841</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149161000" />
+    <option name="totallyTimeSpent" value="151449000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -1142,14 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5609756">
-          <caret line="73" column="24" selection-start-line="73" selection-start-column="18" selection-end-line="73" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/TextFromResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2601626">
@@ -1192,16 +1194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="76" column="53" selection-start-line="76" selection-start-column="53" selection-end-line="76" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1214,14 +1206,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/derbysyncclient/SyncDB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55711776">
-          <caret line="278" column="5" selection-start-line="278" selection-start-column="5" selection-end-line="278" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="270" column="5" selection-start-line="270" selection-start-column="5" selection-end-line="270" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1509186397441" expanded="true" signature="10702:10797" placeholder="select * fro..missingValue..." />
-            <marker date="1509186397441" expanded="true" signature="33614:33661" placeholder="delete from ..." />
-            <marker date="1509186397441" expanded="true" signature="34601:34639" placeholder="delete from ..." />
+            <marker date="1509201377614" expanded="true" signature="10301:10396" placeholder="select * fro..missingValue..." />
+            <marker date="1509201377614" expanded="true" signature="33213:33260" placeholder="delete from ..." />
+            <marker date="1509201377614" expanded="true" signature="34200:34238" placeholder="delete from ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3813708">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>

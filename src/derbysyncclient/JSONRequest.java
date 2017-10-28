@@ -37,31 +37,39 @@ public class JSONRequest {
     }
 
     public HashMap<String,Object> post(HashMap<String,Object> data) throws Exception {
+        CloseableHttpResponse response=null;
         try {
             request.setEntity(new StringEntity(gson.toJson(data)));
-            CloseableHttpResponse response= httpClient.execute(request);
+            response= httpClient.execute(request);
             Header[] respHeaders= response.getAllHeaders();
+            String sContentType=null;
             boolean hasJSONHeader= false;
             for(int i=0; i<respHeaders.length; i++){
                 String sHeaderType= respHeaders[i].getName();
                 String sHeader= respHeaders[i].getValue();
-                if(("Content-Type".equals(sHeaderType)||"content-type".equals(sHeaderType))
-                        && sHeader.contains("application/json")){
+                if("Content-Type".equals(sHeaderType)) sContentType= sHeader;
+                else if("content-type".equals(sHeaderType)) sContentType= sHeader;
+                if(sContentType!=null&&sContentType.contains("application/json")) {
                     hasJSONHeader=true; break;
                 }
             }
-            String sRespData=null;
-            if(hasJSONHeader) sRespData= EntityUtils.toString(response.getEntity(), "UTF-8");
-            response.close();
-            logger.log(Level.FINE, "Getted response from server /SyncService: \n body={0}", sRespData);
+            String sRespData= EntityUtils.toString(response.getEntity(), "UTF-8");
+            logger.log(Level.FINE, "Getted response from server url"+url+": \n body={0}", sRespData);
+            if(!hasJSONHeader&&sRespData!=null) sRespData= sRespData.substring(0,1020)+" ...";
             if(!hasJSONHeader)
-                throw new Exception("Failed JSON request! Reason: response no JSON content!");
-            Result respData = gson.fromJson(sRespData, Result.class);
-            if(respData==null)
-                throw new Exception("Failed JSON request! Reason: no JSON data!");
-            return respData.getResult();
+                throw new Exception("Response no JSON content! \n Content-type:"+sContentType+" Response content:"+sRespData);
+            try {
+                Result respData = gson.fromJson(sRespData, Result.class);
+                if(respData==null)
+                    throw new Exception("No JSON data!");
+                return respData.getResult();
+            } catch (Exception e){
+                throw new Exception("Failed get data from JSON content! Reason:"+e.getLocalizedMessage());
+            }
         } catch (Exception ex) {
             throw new Exception("Failed JSON request! Reason:"+ex.getLocalizedMessage());
+        } finally {
+            response.close();
         }
     }
 

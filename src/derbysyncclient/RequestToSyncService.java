@@ -38,7 +38,7 @@ public class RequestToSyncService extends JSONRequest{
         if(dataItem!=null) dataToSend.put("dataItem",dataItem);
         if(dataItem!=null) dataToSend.put("dataItemValues",dataItemValues);
         HashMap<String,Object> syncServiceDataFromService= post(dataToSend);
-        logger.log(Level.INFO, "Getted data from server /SyncService: \n data={0}", syncServiceDataFromService);
+        logger.log(Level.INFO, "Getted data from server /"+SYNC_SERVICE_URI+": \n data={0}", syncServiceDataFromService);
         return syncServiceDataFromService;
     }
     private HashMap<String,Object> postToSyncService(String sSyncServiceRequestType) throws Exception {
