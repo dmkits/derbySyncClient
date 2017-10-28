@@ -9,6 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static derbysyncclient.SyncDB.*;
 
 /** DerbySyncClient
  * Клиент Web-сервиса синхронизации данных с базой MSSQL.
@@ -19,7 +20,8 @@ import java.util.logging.Logger;
 public class DerbySyncClient {
     
     private static final Logger logger = Logger.getLogger("derbysyncclient.DerbySyncClient");
-    
+
+    private static String HOST_NAME;
     private static Registry m_registry = null;
     private static AppMessage m_message = null;
     
@@ -33,8 +35,9 @@ public class DerbySyncClient {
     private static String cvsServiceURL = null;
     private static HashMap<String,String> cvsPOSClientInformation = null;
 
-    private static int cviCountID=0; // количество отправок сообщений за 1 сеанс связи
-    private static int cviTermStorageDay=0; // срок хранения данных свыше которого данные удаляются
+    private static int Msg_Package_Count =0; // количество отправок сообщений за 1 сеанс связи
+    private static int Msg_Fail_Count =0; // кол-во попыток отправки пакетов и обработки ответов в случае неудачи
+    private static int Term_Storage_Day =0; // срок хранения данных свыше которого данные удаляются
 
     private DerbySyncClient() {
     }
@@ -70,6 +73,7 @@ public class DerbySyncClient {
     }
     
     private static boolean init(String[] args) throws Exception {
+        HOST_NAME = java.net.InetAddress.getLocalHost().getHostName();
         // чтение локальных параметров из файла настроек .properties
         loadLocalConfig();
         //----------регистрация драйвера базы данных, из которой извлекаются данные для отправки----------
@@ -96,7 +100,7 @@ public class DerbySyncClient {
         }
         //---удаление примененных данных синхронизации и выход если указан аргумент -DEL_APPLIED_DATA---
         if (sArg1.equalsIgnoreCase("-DEL_APPLIED_DATA")) {
-            SyncDB.delApplSyncData(cvoDBSession, cviTermStorageDay);
+            SyncDB.delApplSyncData(cvoDBSession, Term_Storage_Day);
             return true;
         }
         return false;
@@ -120,17 +124,16 @@ public class DerbySyncClient {
      *   данных в таблице исходящих данных синхронизации.
      * Количество отправок сообщений за один сеанс работы приложения определяется локальным параметром MsgPackageCount. */
     private static void run(String[] args) throws Exception {
-
-        RequestToSyncService requestToSyncService= new RequestToSyncService(cvsServiceURL);
-
+        RequestToSyncService requestToSyncService=
+                new RequestToSyncService(cvsServiceURL, cvsPOSClientInformation.get(POS_ClientSyncName), HOST_NAME);
         // ---поочередная отправка сообщений на входящие данные синхронизации с сервера, сохранение и применение данных с сервера,
         // отправка ответов с результатами сохранения и применения входящих данных---
         //в количестве, установленном параметром "MsgPackageCount"
         int iErrCount = 0; //счетчик неудачных отправок
-        for (int i=1;i<=cviCountID;i++) {
+        for (int i=1;i<= Msg_Package_Count;i++) {
             logger.log(Level.INFO, "REQUEST TO GET SYNC INC DATA...........................................................................................");
             try {
-                if (!requestToSyncService.getSyncIncData(cvsPOSClientInformation)) { //запрос на данные с сервера
+                if (!requestToSyncService.getSyncIncData()) { //запрос на данные с сервера
                     logger.log(Level.INFO, "No sync inc data from server!");
                     break; //если на сервере нет данных для клиента
                 }
@@ -138,54 +141,52 @@ public class DerbySyncClient {
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "FAILED get sync inc data from server! Reason: {0}", e.getMessage());
                 iErrCount++; //счетчик неудачных попыток обработки ответа с сервера
-                if (iErrCount>=5) { break; } //если количество неудачных попыток обработки ответа с сервера >=5 обработка прерывается
             }
+            if (iErrCount>=Msg_Fail_Count) break; //если количество неудачных попыток обработки ответа с сервера >= Msg_Fail_Count обработка прерывается
         }
-        // ----------поочередная отправка сообщений с данными клиента для приема и применения на сервере и прием ответов по результату приема данных на сервере----------
+        // ----------поочередная отправка сообщений с данными клиента для сохранения на сервере и прием ответов по результату сохранения данных на сервере----------
         //в количестве, установленном параметром "MsgPackageCount"
-        boolean bNoDataForSend = false, bNoDataForUpdate = false; //признаки отсутствия данных для отправки
         iErrCount = 0; //счетчик неудачных отправок
-        for (int i=1;i<=cviCountID;i++) {
+        for (int i=1;i<= Msg_Package_Count;i++) {
             logger.log(Level.INFO, "REQUEST TO STORE SYNC OUT DATA.........................................................................................");
             try {
                 HashMap<String,String> outputSyncData= null;
-                if ((outputSyncData=SyncDB.getSyncDataOutItem(cvoDBSession))!=null) {//если есть данные для отправки на сервер
-                    bNoDataForSend=false;
-                    HashMap<String,String> outputSyncDataValues=
-                            SyncDB.getOutSyncDataValues(cvoDBSession, outputSyncData);
-                    HashMap<String,Object> serverOutSyncDataStoreResult=
-                        requestToSyncService.storeSyncOutData(cvsPOSClientInformation, outputSyncData, outputSyncDataValues);
-                    SyncDB.updSyncDataOutStateStoreOnServer(cvoDBSession, outputSyncData.get("ID"), serverOutSyncDataStoreResult);
-                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
+                if ((outputSyncData=SyncDB.getSyncDataOutItem(cvoDBSession))==null) break; //если нет данных для отправки на сервер
+                HashMap<String,String> outputSyncDataValues=
+                        SyncDB.getOutSyncDataValues(cvoDBSession, outputSyncData);
+                HashMap<String,Object> serverOutSyncDataStoreResult=
+                        requestToSyncService.storeSyncOutData(outputSyncData, outputSyncDataValues);
+                if (SyncDB.updSyncDataOutStateStoreOnServer(cvoDBSession, outputSyncData.get("ID"), serverOutSyncDataStoreResult)) {
+                    iErrCount = 0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else {
-                    bNoDataForSend=true; //нет данных для отправки
+                    iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 }
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "FAILED store sync out data to server! Reason: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
-                if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
-                    continue;
-                }
-                logger.log(Level.INFO, "REQUEST TO APPLY SYNC OUT DATA.....................................................................................");
+            }
+            if (iErrCount>=Msg_Fail_Count) break; //если количество неудачных попыток отправки запроса и обработки ответа с сервера >= Msg_Fail_Count обработка прерывается
+        }
+        // ----------поочередная отправка сообщений с данными клиента для применения на сервере и прием ответов по результату применения данных на сервере----------
+        //в количестве, установленном параметром "MsgPackageCount"
+        iErrCount = 0; //счетчик неудачных отправок
+        for (int i=1;i<= Msg_Package_Count;i++) {
+            logger.log(Level.INFO, "REQUEST TO APPLY SYNC OUT DATA.....................................................................................");
             try {
-                if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
                 HashMap<String,String> notAppliedOutputSyncData= null;
-                if ((notAppliedOutputSyncData=SyncDB.getNotAppliedOutputSyncData(cvoDBSession))!=null) {//если есть данные для отправки
-                    bNoDataForUpdate=false;
-                    HashMap<String,Object> serverOutSyncDataApplyResult=
-                        requestToSyncService.applySyncOutData(cvsPOSClientInformation, notAppliedOutputSyncData);
-                    SyncDB.updOutDataStateApplyOnServer(cvoDBSession, notAppliedOutputSyncData.get("ID"), serverOutSyncDataApplyResult);
-                    iErrCount=0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
+                if ((notAppliedOutputSyncData=SyncDB.getNotAppliedOutputSyncData(cvoDBSession))==null) break;//если нет данных для отправки на сервер
+                HashMap<String,Object> serverOutSyncDataApplyResult=
+                        requestToSyncService.applySyncOutData(notAppliedOutputSyncData);
+                if (SyncDB.updOutDataStateApplyOnServer(cvoDBSession, notAppliedOutputSyncData.get("ID"), serverOutSyncDataApplyResult)) {
+                    iErrCount = 0; //если отправка запроса и обработка ответа закончились удачно- сбос счетчика неудачных попыток
                 } else {
-                    bNoDataForUpdate=true; //нет данных для отправки или статус примененных данных не положительный
+                    iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
                 }
             } catch (Exception e) {
                 logger.log(Level.SEVERE, "FAILED apply sync out data on server! Reason: {0}", e.getLocalizedMessage());
                 iErrCount++; //счетчик неудачных попыток отправки запроса и обработки ответа с сервера
-                if (iErrCount>=5) { break; } //если количество неудачных попыток отправки запроса и обработки ответа с сервера >=5 обработка прерывается
-                continue; 
             }
-            if (bNoDataForSend && bNoDataForUpdate) { break; } //выход из цикла если по результату попыток 2-ух отправок нет данных
+            if (iErrCount>=Msg_Fail_Count) break; //если количество неудачных попыток отправки запроса и обработки ответа с сервера >= Msg_Fail_Count обработка прерывается
         }
         requestToSyncService.close();
     }
@@ -225,38 +226,48 @@ public class DerbySyncClient {
     }
     /* Чтение локальных настроек из файла .properties локальных настроек приложения. */
     private static void loadLocalConfig() throws Exception {
+        cvoClientLocalConfig = new ClientLocalConfig();
+        boolean loadDefaultValues= false;
         try {//чтение настроек из файла
-            cvoClientLocalConfig = new ClientLocalConfig();
             cvoClientLocalConfig.load();
-            cvsDBUrl = cvoClientLocalConfig.getProperty("db.URL");
-            cvsDBUser = cvoClientLocalConfig.getProperty("db.user");
-            cvsDBPassword = cvoClientLocalConfig.getProperty("db.password");
-            cvsServiceURL=cvoClientLocalConfig.getProperty("SyncService.URL");
-            cviCountID=Integer.valueOf(cvoClientLocalConfig.getProperty("MsgPackageCount"));
-            cviTermStorageDay=Integer.valueOf(cvoClientLocalConfig.getProperty("TermStorageDay"));
-            logger.log(Level.INFO, "Loaded local parameters:\n db.URL={0} db.user={1} db.password={2} SyncService.URL={3} MsgPackageCount={4} TermStorageDay={5}",
-                    new Object[]{cvsDBUrl, cvsDBUser,cvsDBPassword, cvsServiceURL, cviCountID, cviTermStorageDay});
-            return;
         } catch (Exception e){
-            logger.log(Level.INFO, "FAILED to load local config parameters!");
-        }
-        try {//установка значений настроек по умолчанию
             cvoClientLocalConfig.loadDefault();
-            cvsDBUrl = cvoClientLocalConfig.getProperty("db.URL");
-            cvsDBUser = cvoClientLocalConfig.getProperty("db.user");
-            cvsDBPassword = cvoClientLocalConfig.getProperty("db.password");
-            cvsServiceURL=cvoClientLocalConfig.getProperty("SyncService.URL");
-            cviCountID=Integer.valueOf(cvoClientLocalConfig.getProperty("MsgPackageCount"));
-            cviTermStorageDay=Integer.valueOf(cvoClientLocalConfig.getProperty("TermStorageDay"));
-            logger.log(Level.INFO, "Setted default local parameters:\n db.URL={0} db.user={1} db.password={2} SyncService.URL={3} MsgPackageCount={4} TermStorageDay={5}",
-                    new Object[]{cvsDBUrl, cvsDBUser,cvsDBPassword, cvsServiceURL, cviCountID, cviTermStorageDay});
-        } catch (Exception e) {
-            throw new Exception("FAILED to set default local config parameters! "+e.getMessage());
+            loadDefaultValues= true;
         }
         try {
-            cvoClientLocalConfig.save();// запись локальных настроек в файл .properties
+            cvsDBUrl = cvoClientLocalConfig.getProperty("db.URL");
+            cvsDBUser = cvoClientLocalConfig.getProperty("db.user");
+            cvsDBPassword = cvoClientLocalConfig.getProperty("db.password");
+            cvsServiceURL=cvoClientLocalConfig.getProperty("SyncService.URL");
+            try{
+                Msg_Package_Count =Integer.valueOf(cvoClientLocalConfig.getProperty("MsgPackageCount"));
+            } catch (Exception e){
+                Msg_Package_Count= 100;
+            }
+            try{
+                Msg_Fail_Count=Integer.valueOf(cvoClientLocalConfig.getProperty("MsgFailCount"));
+            } catch (Exception e){
+                Msg_Fail_Count= 10;
+            }
+            try{
+                Term_Storage_Day =Integer.valueOf(cvoClientLocalConfig.getProperty("TermStorageDay"));
+            } catch (Exception e){
+                Term_Storage_Day = 100;
+            }
         } catch (Exception e){
-            logger.log(Level.INFO, "FAILED to save local parameters!",e);
+            logger.log(Level.INFO, "FAILED to set local config parameters!");
+        }
+        if(!loadDefaultValues)
+            logger.log(Level.INFO, "Loaded local parameters:\n db.URL={0} db.user={1} db.password={2} SyncService.URL={3} MsgPackageCount={4} TermStorageDay={5}",
+                    new Object[]{cvsDBUrl, cvsDBUser,cvsDBPassword, cvsServiceURL, Msg_Package_Count, Term_Storage_Day});
+        else logger.log(Level.INFO, "Setted default local parameters:\n db.URL={0} db.user={1} db.password={2} SyncService.URL={3} MsgPackageCount={4} TermStorageDay={5}",
+                new Object[]{cvsDBUrl, cvsDBUser, cvsDBPassword, cvsServiceURL, Msg_Package_Count, Term_Storage_Day});
+        if(loadDefaultValues){
+            try {
+                cvoClientLocalConfig.save();// запись локальных настроек в файл .properties
+            } catch (Exception e){
+                logger.log(Level.INFO, "FAILED to save local parameters!",e);
+            }
         }
     }
 }

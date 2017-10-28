@@ -462,10 +462,7 @@
     </table>
   </data-source>
   <data-source name="Derby - bata1_pos1-20161102@localhost" uuid="c2c2ee10-03c1-4dc0-b2e3-b76698bc391c">
-    <database-info product="Apache Derby" version="10.11.1.1 - (1616546)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
-      <identifier-quote-string>&quot;</identifier-quote-string>
-    </database-info>
-    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
     <schema name="APP" catalog=""/>
     <table name="APPLICATIONS" schema="APP" catalog="" type="TABLE">
       <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>

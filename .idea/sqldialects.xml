@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/sqlscripts/synctriggers_cr.sql" dialect="Derby" />
-    <file url="file://$PROJECT_DIR$/src/sqlscripts/synctriggers_dr.sql" dialect="Derby" />
-    <file url="file://$PROJECT_DIR$/src/sqlscripts/update_db_1_5_1.sql" dialect="Derby" />
-  </component>
-</project>
+<project version="4" />

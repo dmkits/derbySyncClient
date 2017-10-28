@@ -106,8 +106,9 @@ public class ClientLocalConfig {
         //---------- data for connect to SyncService ----------
         m_propsconfig.setProperty("SyncService.URL", "http://localhost:8080/"); //URL сервиса без имени службы
         m_propsconfig.setProperty("MsgPackageCount", "1000"); // максимальное кол-во пакетов, отправляемых за 1 раз
+        m_propsconfig.setProperty("MsgFailCount", "10"); // кол-во попыток отправки пакетов и обработки ответов в случае неудачи
         /* срок хранения данных дней (свыше которого переданные и примененные данные удаляются вместе с журналом передачи */
-        m_propsconfig.setProperty("TermStorageDay", "7"); 
+        m_propsconfig.setProperty("TermStorageDay", "100");
 }
 
     public void save() throws IOException {

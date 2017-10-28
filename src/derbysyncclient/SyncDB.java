@@ -23,6 +23,9 @@ import java.util.logging.Logger;
 public class SyncDB {
     
     private static final Logger logger = Logger.getLogger("derbysyncclient.SyncDB");
+
+    public static String POS_ClientSyncName= "POS.clientSyncName";
+
     private static final String ID= "ID";
     private static final String CRDATE= "CRDATE";
     private static final String TABLENAME= "TABLENAME";
@@ -31,14 +34,6 @@ public class SyncDB {
     private static final String TABLEKEY1IDVAL= "TABLEKEY1IDVAL";
     private static final String TABLEKEY2IDNAME= "TABLEKEY2IDNAME";
     private static final String TABLEKEY2IDVAL= "TABLEKEY2IDVAL";
-
-    public static String SYNC_DATA_ID = "SyncDataID";
-    public static String TABLE_NAME = "TableName";
-    public static String TABLE_KEY1_NAME = "TableKey1Name";
-    public static String TABLE_KEY1_VALUE = "TableKey1Value";
-    public static String TABLE_KEY2_NAME = "TableKey2Name";
-    public static String TABLE_KEY2_VALUE = "TableKey2Value";
-    public static String OPERATION_TYPE = "OType";
 
     public static String SERVER_SYNC_DATA_ID = "ServerSyncDataID";
     public static String SERVER_CREATE_DATE = "ServerCreateDate";
@@ -148,7 +143,7 @@ public class SyncDB {
             }
             if (sPOSClientSyncName==null)
                 throw new Exception("FAILED to get POS client information! POS client sync name no setted!");
-            result.put("POS.clientSyncName", sPOSClientSyncName);
+            result.put(POS_ClientSyncName, sPOSClientSyncName);
             logger.log(Level.INFO, "Getted POS client information from database: POS.clientSyncName={0}",new String[]{sPOSClientSyncName});
             return result;
         } catch (Exception e) {
@@ -222,7 +217,8 @@ public class SyncDB {
             throw new Exception("FAILED to get out sync data values! "+e.getMessage());
         }
     }
-    public static void updSyncDataOutStateStoreOnServer(Session dbs, String sID, HashMap<String, Object> serverResult) throws Exception{
+    public static boolean updSyncDataOutStateStoreOnServer(Session dbs, String sID, HashMap<String, Object> serverResult) throws Exception{
+        boolean result= false;
         String sStatus = null, sMsg= null;
         if(serverResult==null){
         } else if(serverResult.get("error")!=null){
@@ -232,7 +228,9 @@ public class SyncDB {
         } else {
             HashMap<String,Object> serverResultItem= (HashMap)serverResult.get("resultItem");
             Object srvState = serverResultItem.get("STATE");
-            if(srvState!=null&&"0".equals(srvState.toString())) sStatus="0";
+            if(srvState!=null&&"0".equals(srvState.toString())) {
+                sStatus="0"; result= true;
+            }
             Object srvMsg = serverResultItem.get("MSG").toString();
             sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER MESSAGE!";
         }
@@ -246,6 +244,7 @@ public class SyncDB {
             voPSt.executeUpdate();
             voPSt.close();
             logger.log(Level.INFO, "Updated output sync data status and message: status={0}, msg={1}", new Object[]{sStatus,sMsg});
+            return result;
         } catch (Exception e) {
             throw new Exception("FAILED to upd sync out data state store on server! Reason:"+e.getMessage());
         }
@@ -270,7 +269,8 @@ public class SyncDB {
             throw new Exception("FAILED to get not applied output sync data from database! "+e.getMessage());
         }
     }
-    public static void updOutDataStateApplyOnServer(Session dbs, String sID, HashMap<String,Object> serverResult) throws Exception {
+    public static boolean updOutDataStateApplyOnServer(Session dbs, String sID, HashMap<String,Object> serverResult) throws Exception {
+        boolean result=false;
         String sStatus = null, sMsg= null;
         Object appliedDate=null;
         if(serverResult==null){
@@ -299,6 +299,7 @@ public class SyncDB {
             voPSt.executeUpdate();
             voPSt.close();
             logger.log(Level.INFO, "Updated output sync data status and message: status={0}, msg={1}, AppliedDate={2}", new Object[]{sStatus, sMsg, appliedDate});
+            return result;
         } catch (Exception e) {
             throw new Exception("FAILED upd sync out data state apply on server! Reason:"+e.getMessage());
         }
