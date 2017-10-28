@@ -29,24 +29,24 @@ public class RequestToSyncService extends JSONRequest{
     }
 
     private HashMap<String,Object> postToSyncService(String sSyncServiceRequestType,
-                                                     HashMap<String,String> dataItem,
-                                                     HashMap<String,String> dataItemValues) throws Exception {
+                                                     String dataItemName, HashMap<String,String> dataItem,
+                                                     String dataItemValuesName, HashMap<String,String> dataItemValues) throws Exception {
         HashMap<String,Object> dataToSend= new HashMap<>();
         dataToSend.put(SYNC_SERVICE_CLIENT_REQUEST_TYPE,sSyncServiceRequestType);
         dataToSend.put(REQUEST_POS_NAME,REQUEST_POS_NAME_VALUE);
         dataToSend.put(REQUEST_POS_HOST_NAME,REQUEST_POS_HOST_NAME_VALUE);
-        if(dataItem!=null) dataToSend.put("dataItem",dataItem);
-        if(dataItem!=null) dataToSend.put("dataItemValues",dataItemValues);
+        if(dataItemName!=null) dataToSend.put(dataItemName,dataItem);
+        if(dataItemValuesName!=null) dataToSend.put(dataItemValuesName,dataItemValues);
         HashMap<String,Object> syncServiceDataFromService= post(dataToSend);
         logger.log(Level.INFO, "Getted data from server /"+SYNC_SERVICE_URI+": \n data={0}", syncServiceDataFromService);
         return syncServiceDataFromService;
     }
     private HashMap<String,Object> postToSyncService(String sSyncServiceRequestType) throws Exception {
-        return postToSyncService(sSyncServiceRequestType, null,null);
+        return postToSyncService(sSyncServiceRequestType, null,null ,null,null );
     }
     private HashMap<String,Object> postToSyncService(String sSyncServiceRequestType,
-                                                     HashMap<String,String> dataItem) throws Exception {
-        return postToSyncService(sSyncServiceRequestType, dataItem,null);
+                                                     String dataItemName, HashMap<String,String> dataItem) throws Exception {
+        return postToSyncService(sSyncServiceRequestType, dataItemName,dataItem, null,null);
     }
     public boolean getSyncIncData() throws Exception {
         try {
@@ -66,7 +66,8 @@ public class RequestToSyncService extends JSONRequest{
                                     HashMap<String, String> posClientOutDataValues) throws Exception {
         try {
             HashMap<String,Object> outSyncDataResult=
-                    postToSyncService(REQUEST_TYPE_STORE_OUT_DATA, posClientOutData,posClientOutDataValues);
+                    postToSyncService(REQUEST_TYPE_STORE_OUT_DATA,
+                            "SyncDataOut", posClientOutData, "SyncDataOutValues", posClientOutDataValues);
             return outSyncDataResult;
         } catch (Exception e){
             throw new Exception("Failed request to store sync out data! Reason:"+e.getLocalizedMessage());
@@ -75,7 +76,7 @@ public class RequestToSyncService extends JSONRequest{
     public HashMap<String,Object> applySyncOutData(HashMap<String, String> posClientOutData) throws Exception {
         try {
             HashMap<String,Object> outSyncDataResult=
-                    postToSyncService(REQUEST_TYPE_APPLY_OUT_DATA, posClientOutData);
+                    postToSyncService(REQUEST_TYPE_APPLY_OUT_DATA, "SyncDataOut", posClientOutData);
             return outSyncDataResult;
         } catch (Exception e){
             throw new Exception("Failed request to apply sync out data! Reason:"+e.getLocalizedMessage());

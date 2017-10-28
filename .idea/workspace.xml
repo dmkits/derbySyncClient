@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="04cfe2b9-8ed0-4e28-ac22-84032eaf7a1a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" afterPath="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -56,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestToSyncService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RequestToSyncService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.55008787">
+              <caret line="69" column="79" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -83,10 +82,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JSONRequest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JSONRequest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3813708">
+            <state vertical-scroll-proportion="0.0">
               <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
               <folding />
             </state>
@@ -172,8 +171,8 @@
         <option value="$PROJECT_DIR$/src/derbysyncclient/ClientLocalConfig.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/DerbySyncClient.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/SyncDB.java" />
-        <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
         <option value="$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java" />
+        <option value="$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java" />
       </list>
     </option>
   </component>
@@ -698,7 +697,7 @@
       <workItem from="1509090996268" duration="1643000" />
       <workItem from="1509092656710" duration="528000" />
       <workItem from="1509093689090" duration="12277000" />
-      <workItem from="1509184668023" duration="11776000" />
+      <workItem from="1509184668023" duration="14067000" />
     </task>
     <task id="LOCAL-00001" summary="update send to server client data.">
       <created>1496135577256</created>
@@ -772,11 +771,17 @@
       <option name="project" value="LOCAL" />
       <updated>1509201377841</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="process v_1.7 by JSON requests for node syncService. refactor JSONRequest and RequestToSyncService">
+      <created>1509203575989</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1509203575989</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="151449000" />
+    <option name="totallyTimeSpent" value="153740000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -789,7 +794,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="46" y="23" width="1876" height="1183" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295562" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -809,7 +814,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43814918" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.43814918" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -839,7 +844,8 @@
     <MESSAGE value="update files and artifact." />
     <MESSAGE value="update syncClientName_sel.sql." />
     <MESSAGE value="process v_1.7 by JSON requests for node syncService" />
-    <option name="LAST_COMMIT_MESSAGE" value="process v_1.7 by JSON requests for node syncService" />
+    <MESSAGE value="process v_1.7 by JSON requests for node syncService. refactor JSONRequest and RequestToSyncService" />
+    <option name="LAST_COMMIT_MESSAGE" value="process v_1.7 by JSON requests for node syncService. refactor JSONRequest and RequestToSyncService" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1189,7 +1195,7 @@
         <state vertical-scroll-proportion="1.9343864">
           <caret line="110" column="49" selection-start-line="110" selection-start-column="35" selection-end-line="110" selection-end-column="49" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1217,21 +1223,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/JSONRequest.java">
+    <entry file="file://$PROJECT_DIR$/src/derbysyncclient/RequestToSyncService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3813708">
-          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
-          <folding />
+        <state vertical-scroll-proportion="0.55008787">
+          <caret line="69" column="79" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="79" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
