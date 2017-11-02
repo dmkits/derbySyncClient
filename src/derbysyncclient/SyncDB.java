@@ -231,8 +231,8 @@ public class SyncDB {
             if(srvState!=null&&"0".equals(srvState.toString())) {
                 sStatus="0"; result= true;
             }
-            Object srvMsg = serverResultItem.get("MSG").toString();
-            sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER MESSAGE!";
+            Object srvMsg = serverResultItem.get("MSG");
+            sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER STORE RESULT MESSAGE!";
         }
         try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
             String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
@@ -271,7 +271,7 @@ public class SyncDB {
     }
     public static boolean updOutDataStateApplyOnServer(Session dbs, String sID, HashMap<String,Object> serverResult) throws Exception {
         boolean result=false;
-        String sStatus = null, sMsg= null;
+        String sStatus = "-1", sMsg= null;
         Object appliedDate=null;
         if(serverResult==null){
         } else if(serverResult.get("error")!=null){
@@ -280,8 +280,12 @@ public class SyncDB {
             sMsg = "Server Sync Service Failed to apply! Reason: no result item!";
         } else {
             HashMap<String,Object> serverResultItem= (HashMap)serverResult.get("resultItem");
-            sStatus = serverResultItem.get("STATE").toString();
-            sMsg = serverResultItem.get("MSG").toString();
+            Object srvState = serverResultItem.get("STATE");
+            if(srvState!=null&&"1".equals(srvState.toString())) {
+                sStatus="1"; result= true;
+            }
+            Object srvMsg = serverResultItem.get("MSG");
+            sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER APPLY RESULT MESSAGE!";
             appliedDate= serverResultItem.get("APPLIED_DATE");
         }
         try {//выполнение запроса-обновления данных в таблице синхронизации данных на отправку
