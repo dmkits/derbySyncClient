@@ -39,7 +39,9 @@ public class JSONRequest {
     public HashMap<String,Object> post(HashMap<String,Object> data) throws Exception {
         CloseableHttpResponse response=null;
         try {
-            request.setEntity(new StringEntity(gson.toJson(data)));
+            StringEntity reqEntity=new StringEntity(gson.toJson(data));
+            reqEntity.setContentEncoding("UTF-8");
+            request.setEntity(reqEntity);
             response= httpClient.execute(request);
             Header[] respHeaders= response.getAllHeaders();
             String sContentType=null;
