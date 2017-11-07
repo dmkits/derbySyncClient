@@ -32,8 +32,8 @@ public class JSONRequest {
         request = new HttpPost(url);
         request.addHeader("Content-Type", "application/json;charset=UTF-8");
         request.addHeader("Accept","application/json");
-        request.addHeader("Accept-Charset", "UTF-8");
-        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZ").create();
+        request.addHeader("Accept-Charset", "UTF-8"); //
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
     }
 
     public HashMap<String,Object> post(HashMap<String,Object> data) throws Exception {

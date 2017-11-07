@@ -220,6 +220,7 @@ public class SyncDB {
     public static boolean updSyncDataOutStateStoreOnServer(Session dbs, String sID, HashMap<String, Object> serverResult) throws Exception{
         boolean result= false;
         String sStatus = null, sMsg= null;
+        Object appliedDate = null;
         if(serverResult==null){
         } else if(serverResult.get("error")!=null){
             sMsg = "Server Sync Service Failed to store! Reason:"+serverResult.get("error").toString();
@@ -228,21 +229,18 @@ public class SyncDB {
         } else {
             HashMap<String,Object> serverResultItem= (HashMap)serverResult.get("resultItem");
             Object srvState = serverResultItem.get("STATE");
-            if(srvState!=null&&"0".equals(srvState.toString())) {
-                sStatus="0"; result= true;
+            if(srvState!=null&& ("0".equals(srvState.toString())||"1".equals(srvState.toString()))) {
+                sStatus=srvState.toString();
+                appliedDate= serverResultItem.get("APPLIED_DATE");
+                result= true;
+            } else if(srvState!=null) {
+                sStatus=srvState.toString();
             }
             Object srvMsg = serverResultItem.get("MSG");
             sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER STORE RESULT MESSAGE!";
         }
         try { //---подготовка обработчика запросов к БД и выполнение запроса-обновления данных в таблице синхронизации данных на отправку---
-            String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
-            PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
-            voPSt.setString(1,sStatus); //Status
-            voPSt.setString(2,sMsg); //Msg
-            voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
-            voPSt.setString(4, sID); //ID
-            voPSt.executeUpdate();
-            voPSt.close();
+            updOutData(dbs, sID, sStatus, sMsg, appliedDate);
             logger.log(Level.INFO, "Updated output sync data status and message: status={0}, msg={1}", new Object[]{sStatus,sMsg});
             return result;
         } catch (Exception e) {
@@ -283,25 +281,15 @@ public class SyncDB {
             Object srvState = serverResultItem.get("STATE");
             if(srvState!=null&&"1".equals(srvState.toString())) {
                 sStatus="1"; result= true;
+            }else if(srvState!=null) {
+                sStatus=srvState.toString();
             }
             Object srvMsg = serverResultItem.get("MSG");
             sMsg= (srvMsg!=null)?srvMsg.toString():"!NO SERVER APPLY RESULT MESSAGE!";
             appliedDate= serverResultItem.get("APPLIED_DATE");
         }
         try {//выполнение запроса-обновления данных в таблице синхронизации данных на отправку
-            String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataoutwithstatus_upd.sql"); //чтение sql-запроса из ресурса
-            PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
-            voPSt.setString(1,sStatus); //Status
-            voPSt.setString(2, sMsg); //Msg
-            voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
-            if (appliedDate==null||"".equals(appliedDate.toString())) { //APPLIEDDATE
-                voPSt.setNull(4, java.sql.Types.TIMESTAMP);
-            } else {
-                voPSt.setString(4,appliedDate.toString());
-            }
-            voPSt.setString(5, sID); //ID
-            voPSt.executeUpdate();
-            voPSt.close();
+            updOutData(dbs, sID, sStatus, sMsg, appliedDate);
             logger.log(Level.INFO, "Updated output sync data status and message: status={0}, msg={1}, AppliedDate={2}", new Object[]{sStatus, sMsg, appliedDate});
             return result;
         } catch (Exception e) {
@@ -309,6 +297,21 @@ public class SyncDB {
         }
     }
 
+    public static void updOutData(Session dbs, String sID, String sStatus, String sMsg, Object appliedDate) throws Exception {
+        String sQuery_upd= TextFromResource.load("/sqlscripts/syncdataout_upd.sql"); //чтение sql-запроса из ресурса
+        PreparedStatement voPSt=dbs.getConnection().prepareStatement(sQuery_upd);
+        voPSt.setString(1,sStatus); //Status
+        voPSt.setString(2, sMsg); //Msg
+        voPSt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));//UPDATEDATE
+        if (appliedDate==null||"".equals(appliedDate.toString())) { //APPLIEDDATE
+            voPSt.setNull(4, java.sql.Types.TIMESTAMP);
+        } else {
+            voPSt.setString(4,appliedDate.toString());
+        }
+        voPSt.setString(5, sID); //ID
+        voPSt.executeUpdate();
+        voPSt.close();
+    }
 //    /*Запись входящих данных синхронизации в таблицу входящих данных синхронизации.*/
 //    private void recSyncDataIn() throws Exception {
 //        String sID = null;
