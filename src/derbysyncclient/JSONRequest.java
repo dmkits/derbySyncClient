@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -39,8 +40,8 @@ public class JSONRequest {
     public HashMap<String,Object> post(HashMap<String,Object> data) throws Exception {
         CloseableHttpResponse response=null;
         try {
-            StringEntity reqEntity=new StringEntity(gson.toJson(data));
-            reqEntity.setContentEncoding("UTF-8");
+            String sEntity=gson.toJson(data); logger.log(Level.FINE, "Request entity: {0}", sEntity);
+            StringEntity reqEntity=new StringEntity(sEntity, ContentType.APPLICATION_JSON);
             request.setEntity(reqEntity);
             response= httpClient.execute(request);
             Header[] respHeaders= response.getAllHeaders();
