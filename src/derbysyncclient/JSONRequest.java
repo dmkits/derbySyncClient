@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -32,14 +33,16 @@ public class JSONRequest {
         request = new HttpPost(url);
         request.addHeader("Content-Type", "application/json;charset=UTF-8");
         request.addHeader("Accept","application/json");
-        request.addHeader("Accept-Charset", "UTF-8");
-        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZZZ").create();
+        request.addHeader("Accept-Charset", "UTF-8"); //
+        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
     }
 
     public HashMap<String,Object> post(HashMap<String,Object> data) throws Exception {
         CloseableHttpResponse response=null;
         try {
-            request.setEntity(new StringEntity(gson.toJson(data)));
+            String sEntity=gson.toJson(data); logger.log(Level.FINE, "Request entity: {0}", sEntity);
+            StringEntity reqEntity=new StringEntity(sEntity, ContentType.APPLICATION_JSON);
+            request.setEntity(reqEntity);
             response= httpClient.execute(request);
             Header[] respHeaders= response.getAllHeaders();
             String sContentType=null;
