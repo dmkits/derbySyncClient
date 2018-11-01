@@ -909,4 +909,452 @@
       <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
     </table>
   </data-source>
+  <data-source name="Derby - openbravopos-bistro3@localhost" uuid="d7ee9da7-7dcd-44fc-8255-c557774d6d2e">
+    <database-info product="Apache Derby" version="10.11.1.1 - (1616546)" jdbc-version="4.2" driver-name="Apache Derby Network Client JDBC Driver" driver-version="10.11.1.1 - (1616546)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="APP" catalog=""/>
+    <table name="APPLICATIONS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VERSION" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073225650" columns="ID"/>
+    </table>
+    <table name="ATTRIBUTE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073227800" columns="ID"/>
+      <exported-key name="ATTINST_ATT" table="ATTRIBUTEINSTANCE" schema="APP" catalog="" columns="ATTRIBUTE_ID"/>
+      <exported-key name="ATTUSE_ATT" table="ATTRIBUTEUSE" schema="APP" catalog="" columns="ATTRIBUTE_ID"/>
+      <exported-key name="ATTVAL_ATT" table="ATTRIBUTEVALUE" schema="APP" catalog="" columns="ATTRIBUTE_ID"/>
+    </table>
+    <table name="ATTRIBUTEINSTANCE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESETINSTANCE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VALUE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073228130" columns="ID"/>
+      <foreign-key name="ATTINST_ATT" columns="ATTRIBUTE_ID" ref-table="ATTRIBUTE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ATTINST_SET" columns="ATTRIBUTESETINSTANCE_ID" ref-table="ATTRIBUTESETINSTANCE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="ATTRIBUTESET" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073227890" columns="ID"/>
+      <exported-key name="ATTSETINST_SET" table="ATTRIBUTESETINSTANCE" schema="APP" catalog="" columns="ATTRIBUTESET_ID"/>
+      <exported-key name="ATTUSE_SET" table="ATTRIBUTEUSE" schema="APP" catalog="" columns="ATTRIBUTESET_ID"/>
+      <exported-key name="PRODUCTS_ATTRSET_FK" table="PRODUCTS" schema="APP" catalog="" columns="ATTRIBUTESET_ID"/>
+    </table>
+    <table name="ATTRIBUTESETINSTANCE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESET_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073228070" columns="ID"/>
+      <foreign-key name="ATTSETINST_SET" columns="ATTRIBUTESET_ID" ref-table="ATTRIBUTESET" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
+      <exported-key name="ATTINST_SET" table="ATTRIBUTEINSTANCE" schema="APP" catalog="" columns="ATTRIBUTESETINSTANCE_ID"/>
+      <exported-key name="STOCKCURRENT_ATTSETINST" table="STOCKCURRENT" schema="APP" catalog="" columns="ATTRIBUTESETINSTANCE_ID"/>
+      <exported-key name="STOCKDIARY_ATTSETINST" table="STOCKDIARY" schema="APP" catalog="" columns="ATTRIBUTESETINSTANCE_ID"/>
+      <exported-key name="TICKETLINES_ATTSETINST" table="TICKETLINES" schema="APP" catalog="" columns="ATTRIBUTESETINSTANCE_ID"/>
+    </table>
+    <table name="ATTRIBUTEUSE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESET_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="LINENO" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL120913073227930" columns="ID"/>
+      <foreign-key name="ATTUSE_ATT" columns="ATTRIBUTE_ID" ref-table="ATTRIBUTE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="ATTUSE_SET" columns="ATTRIBUTESET_ID" ref-table="ATTRIBUTESET" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
+      <index name="ATTUSE_LINE" unique="true" columns="ATTRIBUTESET_ID,LINENO"/>
+    </table>
+    <table name="ATTRIBUTEVALUE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VALUE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073227830" columns="ID"/>
+      <foreign-key name="ATTVAL_ATT" columns="ATTRIBUTE_ID" ref-table="ATTRIBUTE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="0" deferrability="2"/>
+    </table>
+    <table name="CATEGORIES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PARENTID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="IMAGE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073227390" columns="ID"/>
+      <foreign-key name="CATEGORIES_FK_1" columns="PARENTID" ref-table="CATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="CATEGORIES_FK_1" table="CATEGORIES" schema="APP" catalog="" columns="PARENTID"/>
+      <exported-key name="PRODUCTS_FK_1" table="PRODUCTS" schema="APP" catalog="" columns="CATEGORY"/>
+      <index name="CATEGORIES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="CLOSEDCASH" schema="APP" catalog="" type="TABLE">
+      <column name="MONEY" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="HOST" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="HOSTSEQUENCE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DATESTART" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93"/>
+      <column name="DATEEND" sqlType="TIMESTAMP" precision="26" scale="6" nullable="true" jdbcType="93"/>
+      <primary-key name="SQL120913073229250" columns="MONEY"/>
+      <exported-key name="RECEIPTS_FK_MONEY" table="RECEIPTS" schema="APP" catalog="" columns="MONEY"/>
+      <index name="CLOSEDCASH_INX_SEQ" unique="true" columns="HOST,HOSTSEQUENCE"/>
+      <index name="CLOSEDCASH_INX_1" unique="false" columns="DATESTART"/>
+    </table>
+    <table name="CUSTOMERS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEARCHKEY" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TAXID" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TAXCATEGORY" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARD" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="MAXDEBT" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8" def="MA=="/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ADDRESS2" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="POSTAL" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CITY" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="REGION" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="COUNTRY" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FIRSTNAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="LASTNAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONE2" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FAX" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NOTES" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="VISIBLE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MQ=="/>
+      <column name="CURDATE" sqlType="TIMESTAMP" precision="26" scale="6" nullable="true" jdbcType="93"/>
+      <column name="CURDEBT" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <primary-key name="SQL120913073227170" columns="ID"/>
+      <foreign-key name="CUSTOMERS_TAXCAT" columns="TAXCATEGORY" ref-table="TAXCUSTCATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="RES_CUST_FK_2" table="RESERVATION_CUSTOMERS" schema="APP" catalog="" columns="CUSTOMER"/>
+      <exported-key name="TICKETS_CUSTOMERS_FK" table="TICKETS" schema="APP" catalog="" columns="CUSTOMER"/>
+      <index name="CUSTOMERS_SKEY_INX" unique="true" columns="SEARCHKEY"/>
+      <index name="CUSTOMERS_CARD_INX" unique="false" columns="CARD"/>
+      <index name="CUSTOMERS_NAME_INX" unique="false" columns="NAME"/>
+      <index name="CUSTOMERS_TAXID_INX" unique="false" columns="TAXID"/>
+    </table>
+    <table name="FLOORS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="IMAGE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073230170" columns="ID"/>
+      <exported-key name="PLACES_FK_1" table="PLACES" schema="APP" catalog="" columns="FLOOR"/>
+      <index name="FLOORS_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="LOCATIONS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073228670" columns="ID"/>
+      <exported-key name="STOCKCURRENT_FK_2" table="STOCKCURRENT" schema="APP" catalog="" columns="LOCATION"/>
+      <exported-key name="STOCKDIARY_FK_2" table="STOCKDIARY" schema="APP" catalog="" columns="LOCATION"/>
+      <exported-key name="STOCKLEVEL_LOCATION" table="STOCKLEVEL" schema="APP" catalog="" columns="LOCATION"/>
+      <index name="LOCATIONS_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="PAYMENTS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="RECEIPT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PAYMENT" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TOTAL" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="TRANSID" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="RETURNMSG" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073229990" columns="ID"/>
+      <foreign-key name="PAYMENTS_FK_RECEIPT" columns="RECEIPT" ref-table="RECEIPTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="PAYMENTS_INX_1" unique="false" columns="PAYMENT"/>
+    </table>
+    <table name="PEOPLE" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="APPPASSWORD" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CARD" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ROLE" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VISIBLE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="IMAGE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073226280" columns="ID"/>
+      <foreign-key name="PEOPLE_FK_1" columns="ROLE" ref-table="ROLES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="TICKETS_FK_2" table="TICKETS" schema="APP" catalog="" columns="PERSON"/>
+      <index name="PEOPLE_NAME_INX" unique="true" columns="NAME"/>
+      <index name="PEOPLE_CARD_INX" unique="false" columns="CARD"/>
+    </table>
+    <table name="PLACES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="X" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="Y" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="FLOOR" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073230250" columns="ID"/>
+      <foreign-key name="PLACES_FK_1" columns="FLOOR" ref-table="FLOORS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="PLACES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="PRODUCTS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="REFERENCE" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CODE" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CODETYPE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRICEBUY" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="PRICESELL" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="CATEGORY" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TAXCAT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESET_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STOCKCOST" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <column name="STOCKVOLUME" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <column name="IMAGE" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <column name="ISCOM" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="ISSCALE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="ATTRIBUTES" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073228230" columns="ID"/>
+      <foreign-key name="PRODUCTS_ATTRSET_FK" columns="ATTRIBUTESET_ID" ref-table="ATTRIBUTESET" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PRODUCTS_FK_1" columns="CATEGORY" ref-table="CATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PRODUCTS_TAXCAT_FK" columns="TAXCAT" ref-table="TAXCATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="PRODUCTS_CAT_FK_1" table="PRODUCTS_CAT" schema="APP" catalog="" columns="PRODUCT"/>
+      <exported-key name="PRODUCTS_COM_FK_2" table="PRODUCTS_COM" schema="APP" catalog="" columns="PRODUCT2"/>
+      <exported-key name="PRODUCTS_COM_FK_1" table="PRODUCTS_COM" schema="APP" catalog="" columns="PRODUCT"/>
+      <exported-key name="STOCKCURRENT_FK_1" table="STOCKCURRENT" schema="APP" catalog="" columns="PRODUCT"/>
+      <exported-key name="STOCKDIARY_FK_1" table="STOCKDIARY" schema="APP" catalog="" columns="PRODUCT"/>
+      <exported-key name="STOCKLEVEL_PRODUCT" table="STOCKLEVEL" schema="APP" catalog="" columns="PRODUCT"/>
+      <exported-key name="TICKETLINES_FK_2" table="TICKETLINES" schema="APP" catalog="" columns="PRODUCT"/>
+      <index name="PRODUCTS_INX_0" unique="true" columns="REFERENCE"/>
+      <index name="PRODUCTS_INX_1" unique="true" columns="CODE"/>
+      <index name="PRODUCTS_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="PRODUCTS_CAT" schema="APP" catalog="" type="TABLE">
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CATORDER" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL120913073228450" columns="PRODUCT"/>
+      <foreign-key name="PRODUCTS_CAT_FK_1" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="PRODUCTS_CAT_INX_1" unique="false" columns="CATORDER"/>
+    </table>
+    <table name="PRODUCTS_COM" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRODUCT2" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073228530" columns="ID"/>
+      <foreign-key name="PRODUCTS_COM_FK_2" columns="PRODUCT2" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="PRODUCTS_COM_FK_1" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="PCOM_INX_PROD" unique="true" columns="PRODUCT,PRODUCT2"/>
+    </table>
+    <table name="RECEIPTS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="MONEY" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DATENEW" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93"/>
+      <column name="ATTRIBUTES" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073229330" columns="ID"/>
+      <foreign-key name="RECEIPTS_FK_MONEY" columns="MONEY" ref-table="CLOSEDCASH" ref-schema="APP" ref-catalog="" ref-columns="MONEY" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="PAYMENTS_FK_RECEIPT" table="PAYMENTS" schema="APP" catalog="" columns="RECEIPT"/>
+      <exported-key name="TAXLINES_RECEIPT" table="TAXLINES" schema="APP" catalog="" columns="RECEIPT"/>
+      <exported-key name="TICKETS_FK_ID" table="TICKETS" schema="APP" catalog="" columns="ID"/>
+      <index name="RECEIPTS_INX_1" unique="false" columns="DATENEW"/>
+    </table>
+    <table name="RESERVATIONS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CREATED" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93"/>
+      <column name="DATENEW" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93" def="JzIwMDEtMDEtMDEgMDA6MDA6MDAn"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CHAIRS" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ISDONE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5"/>
+      <column name="DESCRIPTION" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073230460" columns="ID"/>
+      <exported-key name="RES_CUST_FK_1" table="RESERVATION_CUSTOMERS" schema="APP" catalog="" columns="ID"/>
+      <index name="RESERVATIONS_INX_1" unique="false" columns="DATENEW"/>
+    </table>
+    <table name="RESERVATION_CUSTOMERS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CUSTOMER" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073230520" columns="ID"/>
+      <foreign-key name="RES_CUST_FK_2" columns="CUSTOMER" ref-table="CUSTOMERS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="RES_CUST_FK_1" columns="ID" ref-table="RESERVATIONS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="RESOURCES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="RESTYPE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CONTENT" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073226530" columns="ID"/>
+      <index name="RESOURCES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="ROLES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PERMISSIONS" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073226120" columns="ID"/>
+      <exported-key name="PEOPLE_FK_1" table="PEOPLE" schema="APP" catalog="" columns="ROLE"/>
+      <index name="ROLES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="SHAREDTICKETS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CONTENT" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073230680" columns="ID"/>
+    </table>
+    <table name="STOCKCURRENT" schema="APP" catalog="" type="TABLE">
+      <column name="LOCATION" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESETINSTANCE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="UNITS" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <foreign-key name="STOCKCURRENT_ATTSETINST" columns="ATTRIBUTESETINSTANCE_ID" ref-table="ATTRIBUTESETINSTANCE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="STOCKCURRENT_FK_2" columns="LOCATION" ref-table="LOCATIONS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="STOCKCURRENT_FK_1" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="STOCKCURRENT_INX" unique="true" columns="LOCATION,PRODUCT,ATTRIBUTESETINSTANCE_ID"/>
+    </table>
+    <table name="STOCKDIARY" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DATENEW" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93"/>
+      <column name="REASON" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="LOCATION" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTESETINSTANCE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="UNITS" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="PRICE" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="SQL120913073228760" columns="ID"/>
+      <foreign-key name="STOCKDIARY_ATTSETINST" columns="ATTRIBUTESETINSTANCE_ID" ref-table="ATTRIBUTESETINSTANCE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="STOCKDIARY_FK_2" columns="LOCATION" ref-table="LOCATIONS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="STOCKDIARY_FK_1" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="STOCKDIARY_INX_1" unique="false" columns="DATENEW"/>
+    </table>
+    <table name="STOCKLEVEL" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="LOCATION" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STOCKSECURITY" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <column name="STOCKMAXIMUM" sqlType="DOUBLE" precision="52" scale="0" nullable="true" jdbcType="8"/>
+      <primary-key name="SQL120913073228980" columns="ID"/>
+      <foreign-key name="STOCKLEVEL_LOCATION" columns="LOCATION" ref-table="LOCATIONS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="STOCKLEVEL_PRODUCT" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="SYNCDATAIN" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+      <column name="CHID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="TABLENAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="KEYNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="KEYVAL" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CRDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="UPDATEDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="STATUS" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ATTEMPTSCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="APPLIEDDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="MSG" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140511171903240" columns="ID"/>
+    </table>
+    <table name="SYNCDATAOUT" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+      <column name="TABLENAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="OTYPE" sqlType="VARCHAR" precision="1" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TABLEKEY1IDNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TABLEKEY1IDVAL" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TABLEKEY2IDNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TABLEKEY2IDVAL" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CRDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="UPDATEDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="STATUS" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ATTEMPTSCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="APPLIEDDATE" sqlType="TIMESTAMP" precision="29" scale="9" nullable="true" jdbcType="93"/>
+      <column name="MSG" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL140511171903130" columns="ID"/>
+    </table>
+    <table name="SYNCDBPROPS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="DBNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="POSNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="STOCKNAME" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL140511171902880" columns="ID"/>
+    </table>
+    <table name="TAXCATEGORIES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073227510" columns="ID"/>
+      <exported-key name="PRODUCTS_TAXCAT_FK" table="PRODUCTS" schema="APP" catalog="" columns="TAXCAT"/>
+      <exported-key name="TAXES_CAT_FK" table="TAXES" schema="APP" catalog="" columns="CATEGORY"/>
+      <index name="TAXCAT_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="TAXCUSTCATEGORIES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SQL120913073227110" columns="ID"/>
+      <exported-key name="CUSTOMERS_TAXCAT" table="CUSTOMERS" schema="APP" catalog="" columns="TAXCATEGORY"/>
+      <exported-key name="TAXES_CUSTCAT_FK" table="TAXES" schema="APP" catalog="" columns="CUSTCATEGORY"/>
+      <index name="TAXCUSTCAT_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="TAXES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VALIDFROM" sqlType="TIMESTAMP" precision="26" scale="6" nullable="false" jdbcType="93" def="JzIwMDEtMDEtMDEgMDA6MDA6MDAn"/>
+      <column name="CATEGORY" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CUSTCATEGORY" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PARENTID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="RATE" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="RATECASCADE" sqlType="SMALLINT" precision="5" scale="0" nullable="false" jdbcType="5" def="MA=="/>
+      <column name="RATEORDER" sqlType="INTEGER" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="SQL120913073227590" columns="ID"/>
+      <foreign-key name="TAXES_CAT_FK" columns="CATEGORY" ref-table="TAXCATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TAXES_CUSTCAT_FK" columns="CUSTCATEGORY" ref-table="TAXCUSTCATEGORIES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TAXES_TAXES_FK" columns="PARENTID" ref-table="TAXES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="TAXES_TAXES_FK" table="TAXES" schema="APP" catalog="" columns="PARENTID"/>
+      <exported-key name="TAXLINES_TAX" table="TAXLINES" schema="APP" catalog="" columns="TAXID"/>
+      <exported-key name="TICKETLINES_FK_3" table="TICKETLINES" schema="APP" catalog="" columns="TAXID"/>
+      <index name="TAXES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="TAXLINES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="RECEIPT" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TAXID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="BASE" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="AMOUNT" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <primary-key name="SQL120913073230070" columns="ID"/>
+      <foreign-key name="TAXLINES_RECEIPT" columns="RECEIPT" ref-table="RECEIPTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TAXLINES_TAX" columns="TAXID" ref-table="TAXES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="THIRDPARTIES" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CIF" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="NAME" sqlType="VARCHAR" precision="1024" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ADDRESS" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTACTCOMM" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CONTACTFACT" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PAYRULE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FAXNUMBER" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PHONENUMBER" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="MOBILENUMBER" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMAIL" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="WEBPAGE" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NOTES" sqlType="VARCHAR" precision="1024" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="SQL120913073230600" columns="ID"/>
+      <index name="THIRDPARTIES_CIF_INX" unique="true" columns="CIF"/>
+      <index name="THIRDPARTIES_NAME_INX" unique="true" columns="NAME"/>
+    </table>
+    <table name="TICKETLINES" schema="APP" catalog="" type="TABLE">
+      <column name="TICKET" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="LINE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PRODUCT" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ATTRIBUTESETINSTANCE_ID" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="UNITS" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="PRICE" sqlType="DOUBLE" precision="52" scale="0" nullable="false" jdbcType="8"/>
+      <column name="TAXID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="ATTRIBUTES" sqlType="BLOB" precision="2147483647" scale="0" nullable="true" jdbcType="2004"/>
+      <primary-key name="SQL120913073229630" columns="TICKET,LINE"/>
+      <foreign-key name="TICKETLINES_ATTSETINST" columns="ATTRIBUTESETINSTANCE_ID" ref-table="ATTRIBUTESETINSTANCE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TICKETLINES_FK_2" columns="PRODUCT" ref-table="PRODUCTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TICKETLINES_FK_3" columns="TAXID" ref-table="TAXES" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TICKETLINES_FK_TICKET" columns="TICKET" ref-table="TICKETS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="TICKETS" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="TICKETTYPE" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="TICKETID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="PERSON" sqlType="VARCHAR" precision="256" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CUSTOMER" sqlType="VARCHAR" precision="256" scale="0" nullable="true" jdbcType="12"/>
+      <column name="STATUS" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <primary-key name="SQL120913073229410" columns="ID"/>
+      <foreign-key name="TICKETS_CUSTOMERS_FK" columns="CUSTOMER" ref-table="CUSTOMERS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TICKETS_FK_2" columns="PERSON" ref-table="PEOPLE" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="TICKETS_FK_ID" columns="ID" ref-table="RECEIPTS" ref-schema="APP" ref-catalog="" ref-columns="ID" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="TICKETLINES_FK_TICKET" table="TICKETLINES" schema="APP" catalog="" columns="TICKET"/>
+      <index name="TICKETS_TICKETID" unique="false" columns="TICKETTYPE,TICKETID"/>
+    </table>
+    <table name="TICKETSNUM" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+    </table>
+    <table name="TICKETSNUM_PAYMENT" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+    </table>
+    <table name="TICKETSNUM_REFUND" schema="APP" catalog="" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="QVVUT0lOQ1JFTUVOVDogc3RhcnQgMSBpbmNyZW1lbnQgMQ==" autoIncrement="true"/>
+    </table>
+  </data-source>
 </component>

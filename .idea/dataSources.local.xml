@@ -13,5 +13,11 @@
       <schema-pattern>*.APP</schema-pattern>
       <default-schemas>*.APP</default-schemas>
     </data-source>
+    <data-source name="Derby - openbravopos-bistro3@localhost" uuid="d7ee9da7-7dcd-44fc-8255-c557774d6d2e">
+      <secret-storage>memory</secret-storage>
+      <user-name>APP</user-name>
+      <schema-pattern>*.APP</schema-pattern>
+      <default-schemas>*.APP</default-schemas>
+    </data-source>
   </component>
 </project>
